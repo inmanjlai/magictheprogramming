@@ -1,5 +1,21 @@
 from .db import db
 
+decklists = db.Table(
+    "decklists",
+    db.Column(
+        "deck_id", 
+        db.Integer, 
+        db.ForeignKey("decks.id"), 
+        primary_key=True
+    ),
+    db.Column(
+        "card_id", 
+        db.Integer, 
+        db.ForeignKey("cards.id"), 
+        primary_key=True
+    )
+)
+
 class Deck(db.Model):
     __tablename__ = 'decks'
 
@@ -10,11 +26,12 @@ class Deck(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
     owner = db.relationship("User", backref="decks")
+    decklist = db.relationship("Card", secondary=decklists, backref="decks")
 
     def to_dict(self):
         return {
             'name': self.name,
             'format': self.format,
             'description': self.description,
-            'owner': self.owner.to_dict() 
+            'owner': self.owner.to_dict()
         }
