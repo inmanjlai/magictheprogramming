@@ -1,4 +1,5 @@
 from .db import db
+import datetime
 
 decklists = db.Table(
     "decklists",
@@ -24,6 +25,7 @@ class Deck(db.Model):
     format = db.Column(db.String(80), nullable=False)
     description = db.Column(db.String(10000), nullable=True)
     owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    created_at = db.Column(db.String(2000), default=datetime.datetime.now().strftime('%x'))
 
     owner = db.relationship("User", backref="decks")
     decklist = db.relationship("Card", secondary=decklists, backref="decks")
@@ -33,5 +35,6 @@ class Deck(db.Model):
             'name': self.name,
             'format': self.format,
             'description': self.description,
-            'owner': self.owner.to_dict()
+            'owner': self.owner.to_dict(),
+            'decklist': [card for card in self.decklist]
         }
