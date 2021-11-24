@@ -1,8 +1,2 @@
-# magictheprogramming
-Basel and I's project
-
-KEY FEATURES
-USERS
-CARDS
-DECKS
-COMMENTS
+# Magic: the Gathering Deck Builder
+## README COMING SOON
