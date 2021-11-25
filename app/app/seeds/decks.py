@@ -10,7 +10,15 @@ def seed_decks():
         owner_id=1
     )
 
+    MRG = Deck(
+        name='Mono Red Goblins',
+        format='Modern',
+        description='Krenko\'s Infinite Combos',
+        owner_id=2
+    )
+
     db.session.add(MBA)
+    db.session.add(MRG)
     db.session.commit()
 
 

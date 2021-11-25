@@ -9,7 +9,14 @@ def seed_comments():
         content="This deck blows!",
     )
 
+    comment_two = Comment(
+        deck_id=2,
+        user_id=1,
+        content="Wow! What a clean backend!"
+    )
+
     db.session.add(comment_one)
+    db.session.add(comment_two)
     db.session.commit()
 
 
