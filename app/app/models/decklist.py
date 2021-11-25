@@ -13,3 +13,5 @@ class Decklist(db.Model):
             'card_id': self.card_id,
             'quantity': self.quantity
         }
+
+    

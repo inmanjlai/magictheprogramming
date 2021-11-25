@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from app.forms.card_form import NewCard
-from app.models import db, Card
+from app.models import db, Card, Decklist
 import requests
 from colors import *
 
@@ -12,11 +12,21 @@ def scryfall_find_card(card_name):
     data = response.json()
     return data
 
+def card_info(card_id):
+        card = Card.query.get(card_id)
+        return card.to_dict()
+
 # GET ALL CARDS
 @card_routes.route('/')
 def get_all_cards():
     cards = Card.query.all()
     return {'cards': [card.to_dict() for card in cards]}
+
+# GET ALL CARDS IN A DECK
+@card_routes.route('/<int:deck_id>/')
+def get_cards_in_deck(deck_id):
+    cards = Decklist.query.filter(Decklist.deck_id == deck_id).all()
+    return {"cards": [{"card_info": card_info(card.card_id), "quantity": card.quantity} for card in cards]}
 
 # FIND CARDS BASED ON PARAMETER
 @card_routes.route('/<path:card_name>/')
@@ -46,3 +56,5 @@ def create_card():
         return {'success': 'card created sucessfully'}
     else:
         return {'create_error': 'invalid card form data'}
+
+
