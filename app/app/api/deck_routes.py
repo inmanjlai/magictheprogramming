@@ -50,7 +50,7 @@ def add_card(deck_id, card_id):
         # if this is truthy ==> decklist.quantity += 1
         # else new Decklist(deck_id=deck.id, card_id=card.id)
 
-    decklist = Decklist.query.filter((Decklist.deck_id == deck.id) and (Decklist.card_id == card_to_add.id)).first()
+    decklist = Decklist.query.filter((Decklist.deck_id == deck.id) & (Decklist.card_id == card_to_add.id)).first()
     if decklist:
         print(CREDBG + "\n DECKLIST: \n", decklist.to_dict(), "\n" + CEND)
         decklist.quantity = decklist.quantity + 1
@@ -71,7 +71,7 @@ def remove_all_of_card(deck_id, card_id):
     deck = Deck.query.get(deck_id)
     card = Card.query.get(card_id)
 
-    decklist = Decklist.query.filter((Decklist.deck_id == deck.id) and (Decklist.card_id == card.id)).first()
+    decklist = Decklist.query.filter((Decklist.deck_id == deck.id) & (Decklist.card_id == card.id)).first()
     if decklist:
         db.session.delete(decklist)
         db.session.commit()
@@ -85,7 +85,7 @@ def remove_card(deck_id, card_id):
     deck = Deck.query.get(deck_id)
     card = Card.query.get(card_id)
 
-    decklist = Decklist.query.filter((Decklist.deck_id == deck.id) and (Decklist.card_id == card.id)).first()
+    decklist = Decklist.query.filter((Decklist.deck_id == deck.id) & (Decklist.card_id == card.id)).first()
     if decklist:
         if decklist.quantity > 1:
             decklist.quantity = decklist.quantity - 1
