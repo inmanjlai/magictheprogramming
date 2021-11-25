@@ -65,6 +65,38 @@ def add_card(deck_id, card_id):
 
     return {"message": f"{card_to_add.name} added to {deck.name}"}
 
+# Remove all of one card from a deck
+@deck_routes.route('/<int:deck_id>/<int:card_id>/', methods=["DELETE"])
+def remove_all_of_card(deck_id, card_id):
+    deck = Deck.query.get(deck_id)
+    card = Card.query.get(card_id)
+
+    decklist = Decklist.query.filter((Decklist.deck_id == deck.id) and (Decklist.card_id == card.id)).first()
+    if decklist:
+        db.session.delete(decklist)
+        db.session.commit()
+        return {"success": f"{card.name} removed from {deck.name}"}
+    else:
+        return {"remove_card_error": "card or deck does not exist"}
+
+# Remove a copy of one card from a deck
+@deck_routes.route('/<int:deck_id>/<int:card_id>/', methods=["PUT"])
+def remove_card(deck_id, card_id):
+    deck = Deck.query.get(deck_id)
+    card = Card.query.get(card_id)
+
+    decklist = Decklist.query.filter((Decklist.deck_id == deck.id) and (Decklist.card_id == card.id)).first()
+    if decklist:
+        if decklist.quantity > 1:
+            decklist.quantity = decklist.quantity - 1
+        else:
+            db.session.delete(decklist)
+
+        db.session.commit()
+        return {"success": f"{card.name} removed from {deck.name}"}
+    else:
+        return {"remove_card_error": "card or deck does not exist"}
+
 # Edit one deck
 @deck_routes.route('/<int:deck_id>/', methods=["PUT"])
 def edit_deck(deck_id):
