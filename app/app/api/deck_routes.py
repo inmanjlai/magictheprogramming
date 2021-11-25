@@ -1,9 +1,23 @@
 from flask import Blueprint
-from app.models import db, Card, Deck, Decklist
+from app.models import db, Card, Deck, Decklist, User
 from colors import *
 
 deck_routes = Blueprint('decks', __name__)
 
+# Read all decks that exist
+@deck_routes.route('/')
+def get_all_decks():
+    decks = Deck.query.all()
+    return {"decks": [deck.to_dict() for deck in decks]}
+
+# Read a single user's decks
+@deck_routes.route('/<int:user_id>/')
+def get_users_decks(user_id):
+    user = User.query.get(user_id)
+    if user:
+        return user.get_decks()
+    else: 
+        return {"error": "user doesn't exist"}
 
 @deck_routes.route('/<int:deck_id>/<int:card_id>/', methods=["POST"]) # /deck_1/card_1/
 def add_card(deck_id, card_id):
@@ -20,17 +34,12 @@ def add_card(deck_id, card_id):
         decklist.quantity = decklist.quantity + 1
 
     else:
-        print(CREDBG + "\n ADDING CARD TO DECK... \n" + CEND)
         decklist_to_create = Decklist(deck_id=deck.id, card_id=card_to_add.id)
-        print(CREDBG + f"\n {decklist_to_create.to_dict()} \n" + CEND)
         db.session.add(decklist_to_create)
         db.session.commit()
         return decklist_to_create.to_dict()
     
     db.session.commit()
-
-    print(CREDBG + "\n DECK: \n", deck.to_dict(), "\n" + CEND)
-    print(CBLUEBG + "\n CARD: \n", card_to_add.to_dict(), "\n" + CEND)
 
     return {"message": f"{card_to_add.name} added to {deck.name}"}
 

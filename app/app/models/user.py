@@ -19,6 +19,9 @@ class User(db.Model, UserMixin):
     def password(self, password):
         self.hashed_password = generate_password_hash(password)
 
+    def get_decks(self):
+        return {"decks": [deck.to_dict() for deck in self.decks]}
+
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
