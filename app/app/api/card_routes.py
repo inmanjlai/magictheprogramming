@@ -29,7 +29,7 @@ def get_cards_in_deck(deck_id):
     cards = Decklist.query.filter(Decklist.deck_id == deck_id).all()
     return {"cards": [{"card_info": card_info(card.card_id), "quantity": card.quantity} for card in cards]}
 
-# FIND CARDS BASED ON PARAMETER
+# FIND EXACT CARD FROM SCRYFALL BASED ON PARAMETER (EXACT NAME) AND ADD IT TO A DECK
 @card_routes.route('/<int:deck_id>/<path:card_name>/', methods=["POST"])
 def find_cards(deck_id, card_name):
     card_already_exists = Card.query.filter(Card.name == card_name).first()
@@ -55,24 +55,15 @@ def find_cards(deck_id, card_name):
         # CREATE A CARD IN THE DATABASE USING "card" INFO
         if card['object'] == 'error':
             return {"fetch_error": "No card with that name exists"}
-
-        parsed_card = {
-            'name': card['name'],
-            'type_line': card['type_line'],
-            'oracle_text': card['oracle_text'],
-            'mana_value': card['cmc'],
-            'mana_cost': card['mana_cost'],
-            'colors': ", ".join([color for color in card['colors']]),
-            'image_url': card['image_uris']['normal']
-        }
+            
         new_card = Card(
-            name=parsed_card['name'], 
-            type_line=parsed_card['type_line'], 
-            oracle_text=parsed_card['oracle_text'], 
-            mana_value=parsed_card['mana_value'], 
-            mana_cost=parsed_card['mana_cost'], 
-            colors=parsed_card['colors'], 
-            image_url=parsed_card['image_url']
+            name=card['name'], 
+            type_line=card['type_line'], 
+            oracle_text=card['oracle_text'], 
+            mana_value=card['cmc'], 
+            mana_cost=card['mana_cost'], 
+            colors=", ".join([color for color in card['colors']]), 
+            image_url=card['image_uris']['normal']
 
         )
         db.session.add(new_card)
@@ -84,6 +75,8 @@ def find_cards(deck_id, card_name):
         db.session.commit()
 
         return {"success": f"Added {new_card.name} to {deck.name}"} # CREATE A NEW CARD WITH THE GIVEN INFO FROM THE API
+    
+    # IF YOU GET TO THIS POINT WITHOUT HITTING ANY OF THE PREVIOUS IF STATEMENTS THROW AN ERROR CAUSE WE GOT A PROBLEM BUCKO 
     return {"add_error": "invalid add_card form data"}
 
 # CREATE A CARD
