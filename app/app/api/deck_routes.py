@@ -1,4 +1,5 @@
-from flask import Blueprint
+from flask import Blueprint, request
+from app.forms.deck_form import NewDeck
 from app.models import db, Card, Deck, Decklist, User
 from colors import *
 
@@ -19,6 +20,27 @@ def get_users_decks(user_id):
     else: 
         return {"error": "user doesn't exist"}
 
+# Create a Deck
+@deck_routes.route('/', methods=["POST"])
+def create_deck():
+    form = NewDeck()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        data = form.data
+        new_deck = Deck(
+            name=data['name'],
+            format=data['format'],
+            description=data['description'],
+            owner_id=data['owner_id']
+        )
+        db.session.add(new_deck)
+        db.session.commit()
+        return {"success": "deck made wow!"}
+    else:
+        return {"error": "bad data at postroute"}
+
+# Add a card to a deck
 @deck_routes.route('/<int:deck_id>/<int:card_id>/', methods=["POST"]) # /deck_1/card_1/
 def add_card(deck_id, card_id):
     card_to_add = Card.query.get(card_id)
@@ -43,4 +65,10 @@ def add_card(deck_id, card_id):
 
     return {"message": f"{card_to_add.name} added to {deck.name}"}
 
-
+@deck_routes.route('/<int:deck_id>/', methods=["PUT"])
+def edit_deck(deck_id):
+    deck = Deck.query.get(deck_id)
+    if deck:
+        return {"deck": "we're clean deck edit route"}
+    else: 
+        return{"error": "deck doesn't exist"}
