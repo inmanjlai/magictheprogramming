@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from app.forms.deck_form import NewDeck
+from app.forms.deck_form import EditDeck, NewDeck
 from app.models import db, Card, Deck, Decklist, User
 from colors import *
 
@@ -18,7 +18,7 @@ def get_users_decks(user_id):
     if user:
         return user.get_decks()
     else: 
-        return {"error": "user doesn't exist"}
+        return {"read error": "user doesn't exist"}
 
 # Create a Deck
 @deck_routes.route('/', methods=["POST"])
@@ -38,7 +38,7 @@ def create_deck():
         db.session.commit()
         return {"success": "deck made wow!"}
     else:
-        return {"error": "bad data at postroute"}
+        return {"create error": "bad data at postroute"}
 
 # Add a card to a deck
 @deck_routes.route('/<int:deck_id>/<int:card_id>/', methods=["POST"]) # /deck_1/card_1/
@@ -65,10 +65,36 @@ def add_card(deck_id, card_id):
 
     return {"message": f"{card_to_add.name} added to {deck.name}"}
 
+# Edit one deck
 @deck_routes.route('/<int:deck_id>/', methods=["PUT"])
 def edit_deck(deck_id):
     deck = Deck.query.get(deck_id)
     if deck:
-        return {"deck": "we're clean deck edit route"}
+        form = EditDeck()
+        form['csrf_token'].data = request.cookies['csrf_token']
+
+        if form.validate_on_submit():
+            data = form.data
+            deck.name = data['name']
+            deck.format = data['format']
+            deck.description = data['description']
+            db.session.commit()
+            return deck.to_dict()
+        else:
+            return {"edit error": "invalid form data"}
+
     else: 
-        return{"error": "deck doesn't exist"}
+        return{"edit error": "deck doesn't exist"}
+
+# Delete one deck
+@deck_routes.route('/<int:deck_id>/', methods=["DELETE"])
+def delete_deck(deck_id):
+    deck = Deck.query.get(deck_id)
+    print(CRED + "\n DECK \n", deck, "\n" + CEND)
+    if deck:
+        db.session.delete(deck)
+        db.session.commit()
+        return {"success": "deck deleted"}
+    else: 
+        return {"delete error": "deck does not exist"}
+        
