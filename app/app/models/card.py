@@ -14,6 +14,7 @@ class Card(db.Model):
 
     def to_dict(self):
         return {
+            'id': self.id,
             'name': self.name,
             'type_line': self.type_line,
             'oracle_text': self.oracle_text,

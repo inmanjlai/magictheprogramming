@@ -17,6 +17,15 @@ export const getAllDecks = () => async (dispatch) => {
   }
 };
 
+export const getOneDeck = (deckId) => async (dispatch) => {
+  const response = await fetch(`/api/decks/${deckId}/`);
+
+  if (response.ok) {
+    const deck = await response.json()
+    dispatch(load(deck));
+  }
+};
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_DECKS:

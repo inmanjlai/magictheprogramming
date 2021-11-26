@@ -22,6 +22,8 @@ class Deck(db.Model):
             'format': self.format,
             'description': self.description,
             'owner': self.owner.to_dict(),
-            'decklist': [card for card in self.decklist],
-            'private': self.private
+            'decklist': [card.to_dict() for card in self.decklist],
+            'private': self.private,
+            'created_at': self.created_at,
+            'owner_id': self.owner_id
         }

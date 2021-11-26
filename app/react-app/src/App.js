@@ -9,6 +9,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import Deck from './components/Deck';
+import SingleDeck from './components/Deck/SingleDeck';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -58,6 +59,7 @@ function App() {
 
         <Route path='/decks/:deckId' exact={true}>
           <h2>See one deck and all its details</h2>
+          <SingleDeck />
         </Route>
 
       </Switch>
