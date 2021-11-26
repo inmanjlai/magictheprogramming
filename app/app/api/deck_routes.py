@@ -11,6 +11,11 @@ def get_all_decks():
     decks = Deck.query.all()
     return {"decks": [deck.to_dict() for deck in decks]}
 
+@deck_routes.route('/public/')
+def get_all_public_decks():
+    decks = Deck.query.filter(Deck.private == False).all()
+    return {"decks": [deck.to_dict() for deck in decks]}
+
 # Read a single user's decks
 @deck_routes.route('/<int:user_id>/')
 def get_users_decks(user_id):
