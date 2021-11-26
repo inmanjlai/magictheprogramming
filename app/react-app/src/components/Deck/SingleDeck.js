@@ -61,14 +61,14 @@ const SingleDeck = () => {
     })
 
     const searchResults = results.map((card) => {
-       return <li>{card}</li>
+       return <li key={card}>{card}</li>
     })
 
     return (
         <div>
 
-            {decklistComponent && (user.id === deck?.owner_id) && <h3>{deck.owner.username}'s Deck</h3>}
-            {decklistComponent && (user.id === deck?.owner_id) && (
+            {decklistComponent && (user?.id === deck?.owner_id) && <h3>{deck?.owner.username}'s Deck</h3>}
+            {decklistComponent && (user?.id === deck?.owner_id) && (
                 <div>
                     <form onSubmit={handleSubmit}>
                         <input 
