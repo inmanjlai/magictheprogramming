@@ -10,6 +10,7 @@ class Deck(db.Model):
     description = db.Column(db.String(10000), nullable=True)
     owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     created_at = db.Column(db.String(2000), default=datetime.datetime.now().strftime('%x'))
+    private = db.Column(db.Boolean, default=False)
 
     owner = db.relationship("User", backref="decks")
     decklist = db.relationship("Card", secondary='decklists', backref="decks")

@@ -14,7 +14,8 @@ def seed_decks():
         name='Mono Red Goblins',
         format='Modern',
         description='Krenko\'s Infinite Combos',
-        owner_id=2
+        owner_id=2,
+        private=True
     )
 
     db.session.add(MBA)
