@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getOneDeck } from '../../store/deck'
-import { getOneDecklist } from '../../store/decklist'
+import { addOneCard, getOneDecklist } from '../../store/decklist'
 import { getAllComments } from '../../store/comment'
 
 
@@ -37,7 +37,11 @@ const SingleDeck = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+    }
 
+    const handleAddCard = (e) => {
+        // We want to dispatch the deck id and the exact card name (e.target.innerText)
+        dispatch(addOneCard(params.deckId, e.target.innerText))
     }
 
     const decklistComponent = decklist.map((card) => {
@@ -61,7 +65,7 @@ const SingleDeck = () => {
     })
 
     const searchResults = results.map((card) => {
-       return <li key={card}>{card}</li>
+       return <li onClick={handleAddCard} key={card}>{card}</li>
     })
 
     return (

@@ -17,6 +17,19 @@ export const getOneDecklist = (deckId) => async (dispatch) => {
   }
 };
 
+export const addOneCard = (deckId, cardName) => async (dispatch) => {
+  const response = await fetch(`/api/cards/${deckId}/${cardName}/`,
+    {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+    });
+
+  if (response.ok) {
+    const deck = await response.json()
+    dispatch(load(deck));
+  }
+};
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_DECKLIST:
