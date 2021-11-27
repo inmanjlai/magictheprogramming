@@ -15,7 +15,6 @@ def read_all_comments():
 @comment_routes.route('/<int:deck_id>/')
 def read_comments(deck_id):
     comments = Comment.query.filter(deck_id == Comment.deck_id).all()
-    print(CREDBG + "\n Comments: \n", comments, "\n" + CEND)
     return {'comments': [comment.to_dict() for comment in comments]}
 
 # POST A SINGLE COMMENT ON A DECK
@@ -33,7 +32,8 @@ def post_comment():
         )
         db.session.add(new_comment)
         db.session.commit()
-        return {"success": "comment made!"}
+        comments = Comment.query.filter(Comment.deck_id == data['deck_id']).all()
+        return {'comments': [comment.to_dict() for comment in comments]}
     else:
         return {"create error": "bad data at postroute"}
 

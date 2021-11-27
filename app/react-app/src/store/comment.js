@@ -17,6 +17,20 @@ export const getAllComments = (deckId) => async (dispatch) => {
   }
 };
 
+export const addOneComment = (formData) => async (dispatch) => {
+  const response = await fetch(`/api/comments/`,
+    {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+    });
+
+  if (response.ok) {
+    const comments = await response.json()
+    dispatch(load(comments));
+  }
+};
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_COMMENTS:

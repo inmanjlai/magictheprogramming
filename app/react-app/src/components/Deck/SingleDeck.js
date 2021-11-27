@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getOneDeck } from '../../store/deck'
 import { addOneCard, getOneDecklist, removeAllOfOneCard, removeOneCard } from '../../store/decklist'
-import { getAllComments } from '../../store/comment'
+import { addOneComment, getAllComments } from '../../store/comment'
 
 
 const SingleDeck = () => {
@@ -19,6 +19,7 @@ const SingleDeck = () => {
 
     const [search, setSearch] = useState("")
     const [results, setResults] = useState([])
+    const [comment, setComment] = useState('')
 
     useEffect(() => {
         (async() => {
@@ -39,15 +40,29 @@ const SingleDeck = () => {
         e.preventDefault()
     }
 
+    const handleCreateComment = (e) => {
+        e.preventDefault()
+        const formData = {
+            "deck_id": params.deckId,
+            "user_id": user.id,
+            "content": comment
+        }
+        //dispatch create a comment
+        dispatch(addOneComment(formData))
+        setComment('');
+    }
+
     const handleAddCard = (e) => {
         // We want to dispatch the deck id and the exact card name (e.target.innerText)
         dispatch(addOneCard(params.deckId, e.target.innerText))
         setSearch('')
     }
+
     const handleDeleteCard = (cardId) => {
         // Dispatch to delete one card
         dispatch(removeOneCard(params.deckId, cardId))
     }
+
     const handleDeleteAllCopies = (cardId) => {
         dispatch(removeAllOfOneCard(params.deckId, cardId))
     }
@@ -115,6 +130,14 @@ const SingleDeck = () => {
             </ul>
 
             <h3>Comments</h3>
+            <form onSubmit={handleCreateComment}>
+                <textarea 
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                >
+                </textarea>
+                <button>Post</button>
+            </form>
             <ul>
                 {commentsComponent}
             </ul>
