@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getOneDeck } from '../../store/deck'
 import { addOneCard, getOneDecklist, removeAllOfOneCard, removeOneCard } from '../../store/decklist'
-import { addOneComment, getAllComments } from '../../store/comment'
+import { addOneComment, getAllComments, removeOneComment } from '../../store/comment'
 
 
 const SingleDeck = () => {
@@ -43,8 +43,8 @@ const SingleDeck = () => {
     const handleCreateComment = (e) => {
         e.preventDefault()
         const formData = {
-            "deck_id": params.deckId,
-            "user_id": user.id,
+            "deck_id": params?.deckId,
+            "user_id": user?.id,
             "content": comment
         }
         //dispatch create a comment
@@ -67,6 +67,10 @@ const SingleDeck = () => {
         dispatch(removeAllOfOneCard(params.deckId, cardId))
     }
 
+    const handleDeleteComment = (commentId) => {
+        dispatch(removeOneComment(commentId, params.deckId))
+    }
+
     const decklistComponent = decklist.map((card) => {
         return (
             <div key={card.card_info.id}>
@@ -82,11 +86,14 @@ const SingleDeck = () => {
 
     const commentsComponent = comments.map((comment) => {
         return (
-            <li key={comment.id}>
+            <li key={comment?.id}>
                 <div>
-                    {comment.user.username} said:
+                    {comment?.user?.username} said:
                 </div>
-                {comment.content}
+                {comment?.content}
+                {comment?.user?.id === user?.id && (
+                    <button onClick={() => handleDeleteComment(comment?.id)}>Delete</button>
+                )}
             </li>
         )
     })
@@ -130,14 +137,16 @@ const SingleDeck = () => {
             </ul>
 
             <h3>Comments</h3>
-            <form onSubmit={handleCreateComment}>
-                <textarea 
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                >
-                </textarea>
-                <button>Post</button>
-            </form>
+            {user?.id && (
+                <form onSubmit={handleCreateComment}>
+                    <textarea 
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    >
+                    </textarea>
+                    <button>Post</button>
+                </form>
+            )}
             <ul>
                 {commentsComponent}
             </ul>

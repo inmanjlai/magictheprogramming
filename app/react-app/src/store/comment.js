@@ -31,6 +31,19 @@ export const addOneComment = (formData) => async (dispatch) => {
   }
 };
 
+export const removeOneComment = (commentId, deckId) => async (dispatch) => {
+  const response = await fetch(`/api/comments/${commentId}/${deckId}/`,
+    {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+    });
+
+  if (response.ok) {
+    const comments = await response.json()
+    dispatch(load(comments));
+  }
+};
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_COMMENTS:
