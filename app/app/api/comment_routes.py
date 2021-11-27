@@ -54,12 +54,13 @@ def edit_comment(comment_id):
         return {"EDIT ERROR": "bad data at edit route"}
 
 # DELETE A SINGLE COMMENT
-@comment_routes.route('/<int:comment_id>/', methods=["DELETE"])
-def delete_comment(comment_id):
+@comment_routes.route('/<int:comment_id>/<int:deck_id>/', methods=["DELETE"])
+def delete_comment(comment_id, deck_id):
     comment_to_delete = Comment.query.filter(Comment.id == comment_id).first()
     if comment_to_delete:
         db.session.delete(comment_to_delete)
         db.session.commit()
-        return {"success": "comment deleted!"}
+        comments = Comment.query.filter(Comment.deck_id == deck_id).all()
+        return {'comments': [comment.to_dict() for comment in comments]}
     else:
         return {"DELETE ERROR": "bad data at delete route"}
