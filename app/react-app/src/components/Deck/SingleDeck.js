@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getOneDeck } from '../../store/deck'
-import { addOneCard, getOneDecklist } from '../../store/decklist'
+import { addOneCard, getOneDecklist, removeOneCard } from '../../store/decklist'
 import { getAllComments } from '../../store/comment'
 
 
@@ -42,6 +42,11 @@ const SingleDeck = () => {
     const handleAddCard = (e) => {
         // We want to dispatch the deck id and the exact card name (e.target.innerText)
         dispatch(addOneCard(params.deckId, e.target.innerText))
+        setSearch('')
+    }
+    const handleDeleteCard = (cardId) => {
+        // Dispatch to delete one card
+        dispatch(removeOneCard(params.deckId, cardId))
     }
 
     const decklistComponent = decklist.map((card) => {
@@ -49,6 +54,7 @@ const SingleDeck = () => {
             <div key={card.card_info.id}>
                 <li>{card.card_info.name} | {card.quantity}</li>
                 <img src={card.card_info.image_url} alt="card_image" style={{height: "300px"}} />
+                <button onClick={() => handleDeleteCard(card.card_info.id)}>Delete one card</button>
             </div>
         )
     })

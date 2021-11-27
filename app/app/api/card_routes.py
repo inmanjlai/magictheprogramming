@@ -14,8 +14,8 @@ def scryfall_find_card(card_name):
     return data
 
 def card_info(card_id):
-        card = Card.query.get(card_id)
-        return card.to_dict()
+    card = Card.query.get(card_id)
+    return card.to_dict()
 
 # GET ALL CARDS
 @card_routes.route('/')
@@ -44,10 +44,15 @@ def find_cards(deck_id, card_name):
             # INCREMENT THE QUANTITY OF THAT SPECIFIC CARD IN THE DECK
             already_exists_in_deck.quantity = already_exists_in_deck.quantity + 1
             db.session.commit()
-            return {"add_card": f"another copy of {card_already_exists.name} added to {deck.name}"}
+            cards = Decklist.query.filter(Decklist.deck_id == deck_id).all()
+            return {"cards": [{"card_info": card_info(card.card_id), "quantity": card.quantity} for card in cards]}
         # ELSE IF THE CARD DOESNT EXIST IN THEIR DECK ALREADY BUT DOES EXIST IN THE DATABASE
         else:
             new_card = Decklist(deck_id=deck.id, card_id=card_already_exists.id)
+            db.session.add(new_card)
+            db.session.commit()
+            cards = Decklist.query.filter(Decklist.deck_id == deck_id).all()
+            return {"cards": [{"card_info": card_info(card.card_id), "quantity": card.quantity} for card in cards]}
     # IF THE CARD DOESNT EXIST IN THE DATABASE
     else:
         # FIND A CARD WITH THE EXACT NAME SEARCH USING SCRYFALL API
@@ -74,7 +79,9 @@ def find_cards(deck_id, card_name):
         db.session.add(new_decklist_entry)
         db.session.commit()
 
-        return {"success": f"Added {new_card.name} to {deck.name}"} # CREATE A NEW CARD WITH THE GIVEN INFO FROM THE API
+        cards = Decklist.query.filter(Decklist.deck_id == deck_id).all()
+        return {"cards": [{"card_info": card_info(card.card_id), "quantity": card.quantity} for card in cards]}
+        # return {"success": f"Added {new_card.name} to {deck.name}"} # CREATE A NEW CARD WITH THE GIVEN INFO FROM THE API
     
     # IF YOU GET TO THIS POINT WITHOUT HITTING ANY OF THE PREVIOUS IF STATEMENTS THROW AN ERROR CAUSE WE GOT A PROBLEM BUCKO 
     return {"add_error": "invalid add_card form data"}

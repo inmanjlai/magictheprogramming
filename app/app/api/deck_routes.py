@@ -5,6 +5,10 @@ from colors import *
 
 deck_routes = Blueprint('decks', __name__)
 
+def card_info(card_id):
+    card = Card.query.get(card_id)
+    return card.to_dict()
+
 # Read all decks that exist
 @deck_routes.route('/')
 def get_all_decks():
@@ -80,7 +84,8 @@ def remove_all_of_card(deck_id, card_id):
     if decklist:
         db.session.delete(decklist)
         db.session.commit()
-        return {"success": f"{card.name} removed from {deck.name}"}
+        cards = Decklist.query.filter(Decklist.deck_id == deck_id).all()
+        return {"cards": [{"card_info": card_info(card.card_id), "quantity": card.quantity} for card in cards]}
     else:
         return {"remove_card_error": "card or deck does not exist"}
 
@@ -98,7 +103,8 @@ def remove_card(deck_id, card_id):
             db.session.delete(decklist)
 
         db.session.commit()
-        return {"success": f"{card.name} removed from {deck.name}"}
+        cards = Decklist.query.filter(Decklist.deck_id == deck_id).all()
+        return {"cards": [{"card_info": card_info(card.card_id), "quantity": card.quantity} for card in cards]}
     else:
         return {"remove_card_error": "card or deck does not exist"}
 
