@@ -42,6 +42,19 @@ export const createOneDeck = (formData) => async (dispatch) => {
   }
 };
 
+export const deleteOneDeck = (deckId) => async (dispatch) => {
+  const response = await fetch(`/api/decks/${deckId}/`,
+    {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+    });
+
+  if (response.ok) {
+    const decks = await response.json()
+    dispatch(load(decks));
+  }
+};
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_DECKS:

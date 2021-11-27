@@ -147,7 +147,9 @@ def delete_deck(deck_id):
     if deck:
         db.session.delete(deck)
         db.session.commit()
-        return {"success": "deck deleted"}
+
+        decks = Deck.query.all()
+        return {"decks": [deck.to_dict() for deck in decks]}
     else: 
         return {"delete error": "deck does not exist"}
         

@@ -1,7 +1,7 @@
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getOneDeck } from '../../store/deck'
+import { deleteOneDeck, getOneDeck } from '../../store/deck'
 import { addOneCard, getOneDecklist, removeAllOfOneCard, removeOneCard } from '../../store/decklist'
 import { addOneComment, getAllComments, removeOneComment } from '../../store/comment'
 
@@ -10,6 +10,7 @@ const SingleDeck = () => {
 
     const dispatch = useDispatch()
     const params = useParams()
+    const history = useHistory()
 
     useEffect(() => {
         dispatch(getOneDeck(params.deckId))
@@ -71,6 +72,12 @@ const SingleDeck = () => {
         dispatch(removeOneComment(commentId, params.deckId))
     }
 
+    const handleDeleteDeck = () => {
+        // dispatch delete One Deck passing in params.deckId
+        dispatch(deleteOneDeck(params.deckId))
+        history.push("/decks")
+    }
+
     const decklistComponent = decklist.map((card) => {
         return (
             <div key={card.card_info.id}>
@@ -105,7 +112,7 @@ const SingleDeck = () => {
     return (
         <div>
 
-            {decklistComponent && (user?.id === deck?.owner_id) && <h3>{deck?.owner.username}'s Deck</h3>}
+            {decklistComponent && <h3>{deck?.owner.username}'s Deck</h3>}
             {decklistComponent && (user?.id === deck?.owner_id) && (
                 <div>
                     <form onSubmit={handleSubmit}>
@@ -129,6 +136,7 @@ const SingleDeck = () => {
             <ul>
                 <li>{deck?.name}</li>
                 <li>{deck?.created_at}</li>
+                {user?.id == deck?.owner_id && <button onClick={handleDeleteDeck}>Delete deck</button>}
             </ul>
 
             <h3>Decklist</h3>
