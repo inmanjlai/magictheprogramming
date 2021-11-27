@@ -10,6 +10,7 @@ import User from './components/User';
 import { authenticate } from './store/session';
 import Deck from './components/Deck';
 import SingleDeck from './components/Deck/SingleDeck';
+import CreateDeck from './components/Deck/CreateDeck';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -61,6 +62,11 @@ function App() {
           <h2>See one deck and all its details</h2>
           <SingleDeck />
         </Route>
+
+        <ProtectedRoute path='/new-deck' exact={true} >
+          <h1>Create a deck</h1>
+          <CreateDeck />
+        </ProtectedRoute>
 
       </Switch>
     </BrowserRouter>

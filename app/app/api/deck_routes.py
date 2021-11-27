@@ -21,13 +21,13 @@ def get_all_public_decks():
     return {"decks": [deck.to_dict() for deck in decks]}
 
 # Read a single user's decks
-@deck_routes.route('/<int:user_id>/')
-def get_users_decks(user_id):
-    user = User.query.get(user_id)
-    if user:
-        return user.get_decks()
+@deck_routes.route('/<int:deck_id>/')
+def get_one_decks(deck_id):
+    deck = Deck.query.get(deck_id)
+    if deck:
+        return {"decks": [deck.to_dict()]}
     else: 
-        return {"read error": "user doesn't exist"}
+        return {"read error": "deck doesn't exist"}
 
 # Create a Deck
 @deck_routes.route('/', methods=["POST"])
@@ -35,18 +35,25 @@ def create_deck():
     form = NewDeck()
     form['csrf_token'].data = request.cookies['csrf_token']
 
+    print(CRED, form.data, CEND)
+
     if form.validate_on_submit():
         data = form.data
         new_deck = Deck(
             name=data['name'],
             format=data['format'],
             description=data['description'],
-            owner_id=data['owner_id']
+            owner_id=data['owner_id'],
+            # private=data['private']
         )
         db.session.add(new_deck)
         db.session.commit()
-        return {"success": "deck made wow!"}
+        
+        print(CGREEN, new_deck.to_dict(), CEND)
+        print(CGREEN, "WE ARE HERE", CEND)
+        return {"decks": [new_deck.to_dict()]}
     else:
+        print(CGREEN, "WE ARE AT ERROR", CEND)
         return {"create error": "bad data at postroute"}
 
 # Add a card to a deck
@@ -118,9 +125,12 @@ def edit_deck(deck_id):
 
         if form.validate_on_submit():
             data = form.data
+
             deck.name = data['name']
             deck.format = data['format']
             deck.description = data['description']
+            deck.private = data['private']
+
             db.session.commit()
             return deck.to_dict()
         else:
