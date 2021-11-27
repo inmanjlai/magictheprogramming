@@ -43,6 +43,19 @@ export const removeOneCard = (deckId, cardId) => async (dispatch) => {
   }
 };
 
+export const removeAllOfOneCard = (deckId, cardId) => async (dispatch) => {
+  const response = await fetch(`/api/decks/${deckId}/${cardId}/`,
+    {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+    });
+
+  if (response.ok) {
+    const deck = await response.json()
+    dispatch(load(deck));
+  }
+};
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_DECKLIST:
