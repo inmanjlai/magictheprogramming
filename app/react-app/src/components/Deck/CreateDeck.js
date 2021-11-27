@@ -25,9 +25,8 @@ const CreateDeck = () => {
             "private": visibility
         }
         // dispatch to create a deck taking in a form data
-        const returnedDeck = await dispatch(createOneDeck(formData))
-        console.log(returnedDeck, "<------------------------------")
-        // history.push(`/decks/${returnedDeckId}`)
+        const returnedDeckId = await dispatch(createOneDeck(formData))
+        history.push(`/decks/${returnedDeckId}`)
     }
 
     return (

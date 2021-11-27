@@ -44,7 +44,7 @@ def create_deck():
             format=data['format'],
             description=data['description'],
             owner_id=data['owner_id'],
-            # private=data['private']
+            private=data['private']
         )
         db.session.add(new_deck)
         db.session.commit()

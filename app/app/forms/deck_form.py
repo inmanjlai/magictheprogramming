@@ -9,13 +9,13 @@ class NewDeck(FlaskForm):
     format = StringField("Format", [DataRequired()])
     description = StringField("Description", [DataRequired()])
     owner_id = IntegerField("Owner_id", [DataRequired()])
-    # private = BooleanField("Private", [DataRequired()])
+    private = BooleanField("Private")
 
 class EditDeck(FlaskForm):
     name = StringField("Name", [DataRequired()])
     format = StringField("Format", [DataRequired()])
     description = StringField("Description", [DataRequired()])
-    # private = BooleanField("Private", [DataRequired()])
+    private = BooleanField("Private")
     
 # class DeleteComment(FlaskForm):
 #     comment_id = IntegerField("Id")

@@ -22,7 +22,6 @@ export const getOneDeck = (deckId) => async (dispatch) => {
 
   if (response.ok) {
     const deck = await response.json()
-    console.log(deck, "<---------------------- INSIDE GET ONE DECK")
     dispatch(load(deck));
   }
 };
@@ -39,15 +38,13 @@ export const createOneDeck = (formData) => async (dispatch) => {
     const deck = await response.json()
     dispatch(load(deck));
 
-    console.log(deck.decks.id, "<------------------------- here is the deck id", typeof deck.decks.id)
-    return deck
+    return deck.decks[0].id
   }
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_DECKS:
-      console.log(action.payload, "<------------- inside the reducer")
       return action.payload.decks
     default:
       return state;
