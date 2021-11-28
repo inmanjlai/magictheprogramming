@@ -11,6 +11,7 @@ import { authenticate } from './store/session';
 import Deck from './components/Deck';
 import SingleDeck from './components/Deck/SingleDeck';
 import CreateDeck from './components/Deck/CreateDeck';
+import EditDeck from './components/Deck/EditDeck';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -66,6 +67,11 @@ function App() {
         <ProtectedRoute path='/new-deck' exact={true} >
           <h1>Create a deck</h1>
           <CreateDeck />
+        </ProtectedRoute>
+
+        <ProtectedRoute path='/decks/:deckId/edit' exact={true} >
+          <h1>Edit deck</h1>
+          <EditDeck />
         </ProtectedRoute>
 
       </Switch>

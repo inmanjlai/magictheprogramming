@@ -132,7 +132,7 @@ def edit_deck(deck_id):
             deck.private = data['private']
 
             db.session.commit()
-            return deck.to_dict()
+            return {'decks': [deck.to_dict()]}
         else:
             return {"edit error": "invalid form data"}
 

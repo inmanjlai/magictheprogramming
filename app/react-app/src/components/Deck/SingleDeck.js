@@ -37,8 +37,8 @@ const SingleDeck = () => {
     const comments = useSelector((state) => state.comments)
 
     // THIS IS HOW WE CAN SEPERATE CARDS INTO CATEGORIES ->
-    // const enchantments = decklist?.filter((card) => card?.card_info?.type_line.includes("Enchantment"))
-    // console.log(enchantments, "ENCHANTMENTS")
+    const enchantments = decklist?.filter((card) => card?.card_info?.type_line.includes("Enchantment"))
+    console.log(enchantments, "ENCHANTMENTS")
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -79,6 +79,12 @@ const SingleDeck = () => {
         // dispatch delete One Deck passing in params.deckId
         dispatch(deleteOneDeck(params.deckId))
         history.push("/decks")
+    }
+    
+    const handleEditDeck = () => {
+        history.push(`/decks/${params.deckId}/edit`)
+        // dispatch edit One Deck passing in params.deckId
+        
     }
 
     const decklistComponent = decklist.map((card) => {
@@ -139,6 +145,7 @@ const SingleDeck = () => {
             <ul>
                 <li>{deck?.name}</li>
                 <li>{deck?.created_at}</li>
+                {user?.id === deck?.owner_id && <button onClick={handleEditDeck}>Edit deck</button>}
                 {user?.id === deck?.owner_id && <button onClick={handleDeleteDeck}>Delete deck</button>}
             </ul>
 

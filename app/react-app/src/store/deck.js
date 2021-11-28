@@ -42,6 +42,22 @@ export const createOneDeck = (formData) => async (dispatch) => {
   }
 };
 
+export const editOneDeck = (formData, deckId) => async (dispatch) => {
+  const response = await fetch(`/api/decks/${deckId}/`,
+    {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+    });
+
+  if (response.ok) {
+    const deck = await response.json()
+    dispatch(load(deck));
+
+    return deck.decks[0].id
+  }
+};
+
 export const deleteOneDeck = (deckId) => async (dispatch) => {
   const response = await fetch(`/api/decks/${deckId}/`,
     {
