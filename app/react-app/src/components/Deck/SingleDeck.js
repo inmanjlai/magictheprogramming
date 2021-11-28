@@ -81,7 +81,7 @@ const SingleDeck = () => {
     const decklistComponent = decklist.map((card) => {
         return (
             <div key={card.card_info.id}>
-                <li>{card.card_info.name} | {card.quantity}</li>
+                <li>{card.card_info.name} - {card.quantity}</li>
                 <img src={card.card_info.image_url} alt="card_image" style={{height: "300px"}} />
                 <button onClick={() => handleDeleteCard(card.card_info.id)}>Remove one</button>
                 {card.quantity > 1 && (
