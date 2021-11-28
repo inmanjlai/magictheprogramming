@@ -36,6 +36,9 @@ const SingleDeck = () => {
     const decklist = useSelector((state) => state.decklist)
     const comments = useSelector((state) => state.comments)
 
+    // THIS IS HOW WE CAN SEPERATE CARDS INTO CATEGORIES ->
+    // const enchantments = decklist?.filter((card) => card?.card_info?.type_line.includes("Enchantment"))
+    // console.log(enchantments, "ENCHANTMENTS")
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -136,7 +139,7 @@ const SingleDeck = () => {
             <ul>
                 <li>{deck?.name}</li>
                 <li>{deck?.created_at}</li>
-                {user?.id == deck?.owner_id && <button onClick={handleDeleteDeck}>Delete deck</button>}
+                {user?.id === deck?.owner_id && <button onClick={handleDeleteDeck}>Delete deck</button>}
             </ul>
 
             <h3>Decklist</h3>
