@@ -1,0 +1,36 @@
+nav {
+    background-color: var(--secondary);
+    color: white;
+    height: 60px;
+    border-bottom: 1px solid rgba(19, 36, 92, 0.2);
+    /* box-shadow:0 1px 10px rgba(19, 36, 92, 0.2); */
+}
+
+nav ul {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    height: 100%;
+    margin-left: 25px;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 23px;
+    margin-right: 15px;
+}
+
+.logo img {
+    height: 42px;
+}
+
+.user-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
+    justify-content: end;
+    margin-right: 25px;
+}
