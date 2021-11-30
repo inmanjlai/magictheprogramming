@@ -13,6 +13,7 @@ import SingleDeck from './components/Deck/SingleDeck';
 import CreateDeck from './components/Deck/CreateDeck';
 import EditDeck from './components/Deck/EditDeck';
 import Splash from './components/Splash/Splash';
+import SplashNav from './components/Splash/SplashNav/SplashNav';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -39,7 +40,6 @@ function App() {
         </Route>
 
         <Route path='/sign-up' exact={true}>
-          <NavBar />
           <SignUpForm />
         </Route>
 
