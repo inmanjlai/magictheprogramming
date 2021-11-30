@@ -41,7 +41,7 @@ def create_deck():
         data = form.data
         new_deck = Deck(
             name=data['name'],
-            format=data['format'],
+            commander_id=data['commander_id'],
             description=data['description'],
             owner_id=data['owner_id'],
             private=data['private']
@@ -127,7 +127,7 @@ def edit_deck(deck_id):
             data = form.data
 
             deck.name = data['name']
-            deck.format = data['format']
+            deck.commander_id = data['commander_id']
             deck.description = data['description']
             deck.private = data['private']
 

@@ -5,17 +5,17 @@ from app.models import db, Deck
 def seed_decks():
     MBA = Deck(
         name='Mono Black Aristocrats', 
-        format='Commander', 
         description='Mono Black Aristocrats is an EDH deck header by Yawgmoth, Thran Physician. The main theme is based around sacrificing your own permanents to fuel your value engines. Usual wincons include Gray Merchant of Asphodel, Blood Artist and Torment of Hailfire.',
-        owner_id=1
+        owner_id=1,
+        commander_id=1
     )
 
     MRG = Deck(
         name='Mono Red Goblins',
-        format='Modern',
         description='Krenko\'s Infinite Combos',
         owner_id=2,
-        private=True
+        private=False,
+        commander_id=3
     )
 
     db.session.add(MBA)

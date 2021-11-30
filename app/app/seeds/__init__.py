@@ -3,6 +3,7 @@ from .users import seed_users, undo_users
 from .decks import seed_decks, undo_decks
 from .cards import seed_cards, undo_cards
 from .comments import seed_comments, undo_comments
+from .decklists import seed_decklists, undo_decklists
 
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
@@ -16,6 +17,7 @@ def seed():
     seed_cards()
     seed_decks()
     seed_comments()
+    seed_decklists()
     # Add other seed functions here
 
 
@@ -26,4 +28,5 @@ def undo():
     undo_cards()
     undo_decks()
     undo_comments()
+    undo_decklists()
     # Add other undo functions here

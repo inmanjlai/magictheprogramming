@@ -10,6 +10,7 @@ class NewCard(FlaskForm):
     mana_cost = StringField("Mana_cost", [DataRequired()])
     colors = StringField("Colors", [DataRequired()])
     image_url = StringField("Image_url", [DataRequired()])
+    art_crop = StringField("art_crop", [DataRequired()])
 
 # class EditDeck(FlaskForm):
 #     name = StringField("Name", [DataRequired()])
