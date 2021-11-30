@@ -33,3 +33,10 @@
     justify-content: flex-end;
     margin-right: 25px;
 }
+
+.splash-log button {
+    color: var(--secondary);
+    border: 3px solid var(--secondary);
+    border: none;
+    border-radius: 5px;
+}

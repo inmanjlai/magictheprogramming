@@ -4,9 +4,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(100% - 40px);
-  min-height: 550px;
-  max-height: 700px;
+  height: 700px;
   background-color: var(--primary);
 }
 
@@ -18,9 +16,11 @@
 }
 
 .hero {
+  position: relative;
   display: flex;
   align-items: center;
   flex-direction: column;
+  height: 640px;
 }
 
 .title {
@@ -47,7 +47,7 @@
   align-items: center;
   border-radius: 5px;
   min-width: 300px;
-  width: 800px;
+  width: 720px;
   max-width: 35%;
 }
 
@@ -61,7 +61,8 @@
 }
 
 .search img {
-  filter: invert(31%) sepia(19%) saturate(239%) hue-rotate(169deg) brightness(93%) contrast(95%);
+  filter: invert(31%) sepia(19%) saturate(239%) hue-rotate(169deg)
+    brightness(93%) contrast(95%);
 }
 
 .search input {
@@ -73,4 +74,52 @@
   line-height: 1.5;
   color: rgb(73, 80, 87);
   max-width: 95%;
+}
+
+.splashDecksContainer {
+  margin: 0px 25px 3rem 25px;
+}
+
+.latestDecks {
+  margin-top: -140px;
+}
+
+.latestTitle {
+  letter-spacing: 3px;
+  margin-bottom: 42px;
+  font-size: 21px;
+  color: white;
+  text-align: center;
+  width: 100%;
+}
+
+.gridContainer {
+  --gap: 30px;
+  --num-cols: 4;
+  --row-height: 194px;
+
+  display: grid;
+  grid-template-columns: repeat(var(--num-cols), 1fr);
+  grid-auto-rows: var(--row-height);
+  gap: var(--gap);
+  width: 1550px;
+}
+
+.gridItem {
+  position: relative;
+  cursor: pointer;
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: white;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 4px 3px 0px rgb(0 0 0 / 15%);
+  overflow: hidden;
+  margin-bottom: 30px;
+  border: 3px solid transparent;
+  border-radius: 5px;
 }

@@ -1,8 +1,28 @@
 import './Splash.css'
 import SplashNav from './SplashNav/SplashNav'
 import searchIcon from '../../images/search.svg'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { getAllDecks } from '../../store/deck'
+import { NavLink, useHistory } from 'react-router-dom'
 
 const Splash = () => {
+    const dispatch = useDispatch()
+    const history = useHistory()
+
+    useEffect(() => {
+        dispatch(getAllDecks())
+    }, [dispatch])
+
+    const decks = useSelector((state) => state.decks)
+    const deckComponent = decks?.map((deck) => {
+        return (
+          <div onClick={() => history.push(`/decks/${deck.id}`)} className='gridItem' key={deck.id}>
+            <NavLink to={`/decks/${deck.id}`}>{deck.name}</NavLink>
+          </div>
+        );
+      });
+
     return (
         <>
             <div className='hero-bg'>
@@ -22,7 +42,16 @@ const Splash = () => {
                         <input type="text" placeholder='Search for decks, cards, or users' />
                     </div>
                 </div>
-                <div className="recentDecks"></div>
+                <div className="splashDecksContainer">
+                    <div className="latestDecks">
+                        <div className="latestTitle">OUR LATEST DECKS</div>
+                        <div className="justify-content-center">
+                            <div className="gridContainer">
+                                {deckComponent}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="footer"></div>
         </>

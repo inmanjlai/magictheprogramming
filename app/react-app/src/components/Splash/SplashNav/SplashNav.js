@@ -55,7 +55,7 @@ const SplashNav = () => {
                 </NavLink>
               </li>
             </> :
-            <li>
+            <li className='splash-log'>
             <LogoutButton />
           </li>
           }
