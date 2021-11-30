@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { deleteOneDeck, getOneDeck } from '../../store/deck'
 import { addOneCard, getOneDecklist, removeAllOfOneCard, removeOneCard } from '../../store/decklist'
 import { addOneComment, getAllComments, removeOneComment } from '../../store/comment'
-
+import meren from '../../images/meren.jpg'
+import './SingleDeck.css'
 
 const SingleDeck = () => {
 
@@ -21,12 +22,14 @@ const SingleDeck = () => {
     const [search, setSearch] = useState("")
     const [results, setResults] = useState([])
     const [comment, setComment] = useState('')
+    const [image, setImage] = useState("")
 
     useEffect(() => {
         (async() => {
             const response = await fetch(`https://api.scryfall.com/cards/autocomplete?q=${search}`)
             const data = await response.json()
             setResults(data.data)
+            setImage(meren)
         })();
 
     }, [search]) // 
@@ -90,10 +93,11 @@ const SingleDeck = () => {
     const decklistComponent = decklist.map((card) => {
         return (
             <div key={card.card_info.id}>
-                <li>{card.card_info.name} - {card.quantity}</li>
-                <img src={card.card_info.image_url} alt="card_image" style={{height: "300px"}} />
-                {deck.owner_id == user?.id && <button onClick={() => handleDeleteCard(card.card_info.id)}>Remove one</button>}
-                {card.quantity > 1 && deck.owner_id == user?.id && (
+
+                {/* SHOWS A CARD'S NAME, QUANTITY AND OPTION TO REMOVE IT FROM THE DECK */}
+                <li>{card?.card_info.name} - {card?.quantity} {deck?.owner_id === user?.id && <button onClick={() => handleDeleteCard(card.card_info.id)}>Remove one</button>}</li>
+
+                {card.quantity > 1 && deck.owner_id === user?.id && (
                     <button onClick={() => handleDeleteAllCopies(card.card_info.id)}>Remove all</button>
                 )}
             </div>
@@ -118,12 +122,8 @@ const SingleDeck = () => {
        return <li onClick={handleAddCard} key={card}>{card}</li>
     })
 
-    return (
+    const searchBar = (
         <div>
-
-            {decklistComponent && <h3>{deck?.owner.username}'s Deck</h3>}
-            {decklistComponent && (user?.id === deck?.owner_id) && (
-                <div>
                     <form onSubmit={handleSubmit}>
                         <input 
                             type="search"
@@ -139,15 +139,35 @@ const SingleDeck = () => {
                         </div>
                     </form>
                 </div>
+    )
+
+    const userControls = (
+        <span className='deck-controls'>
+            {user?.id === deck?.owner_id && <button className='editBtn' onClick={handleEditDeck}>Edit deck</button>}
+            {user?.id === deck?.owner_id && <button className='deleteBtn' onClick={handleDeleteDeck}>Delete deck</button>}
+        </span>
+    )
+
+
+    return (
+        <div>
+
+            <div className="deck-details">
+                <h1>{deck?.name}</h1>
+                <p>{deck?.description}</p>
+                <div><p><em>Crafted by</em> <strong>{deck?.owner.username}</strong> • {deck?.created_at}</p></div>
+                {userControls}
+                {/* <div className='showcase'>
+                    <img src={meren} className='showcase-image' alt="showcase" />
+                    <div className='gradient'></div>
+                </div> */}
+            </div>
+
+
+            {/* SEARCH BAR TO FIND AND ADD CARDS TO YOUR DECK */}
+            {decklistComponent && (user?.id === deck?.owner_id) && (
+                searchBar
             )}
-
-
-            <ul>
-                <li>{deck?.name}</li>
-                <li>{deck?.created_at}</li>
-                {user?.id === deck?.owner_id && <button onClick={handleEditDeck}>Edit deck</button>}
-                {user?.id === deck?.owner_id && <button onClick={handleDeleteDeck}>Delete deck</button>}
-            </ul>
 
             <h3>Decklist</h3>
             <ul>

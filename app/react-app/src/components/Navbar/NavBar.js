@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 import './navbar.css'
-import logo from "../../images/logoIcon.png"
+import logo from "../../images/untitled.png"
 
 const NavBar = () => {
 
@@ -59,7 +59,7 @@ const NavBar = () => {
             <LogoutButton />
           </li>
           }
-          </li>
+        </li>
       </ul>
     </nav>
   );

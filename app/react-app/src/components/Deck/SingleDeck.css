@@ -1,0 +1,58 @@
+.deck-details {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    background-color: var(--primary);
+    color: var(--secondary);
+    position: relative;
+}
+
+/* .showcase {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 259px;
+}
+
+.gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgb(54,16,42);
+    background: linear-gradient(90deg, rgba(54,16,42,1) 8%, rgba(41,57,38,0) 100%);
+}
+
+.showcase-image {
+    height: 259px
+} */
+
+.deck-details p {
+    max-width: 100ch;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.deck-details h1 {
+    margin-bottom: 15px;
+    font-size: 50px;
+}
+
+.editBtn, .deleteBtn {
+    border: 2px solid var(--secondary);
+    background-color: transparent;
+    color: var(--secondary);
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.editBtn:hover, .deleteBtn:hover {
+    background-color: var(--secondary);
+    color: var(--primary);
+}
+
+.deck-controls {
+    display: flex;
+    gap: 10px;
+}

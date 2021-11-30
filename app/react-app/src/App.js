@@ -60,7 +60,6 @@ function App() {
         </Route>
 
         <Route path='/decks/:deckId' exact={true}>
-          <h2>See one deck and all its details</h2>
           <SingleDeck />
         </Route>
 

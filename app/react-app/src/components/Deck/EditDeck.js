@@ -22,7 +22,7 @@ const EditDeck = () => {
         setFormat(deck?.format)
         setDescription(deck?.description)
         setVisibilty(deck?.private)
-    }, [deck?.id])
+    }, [deck?.id, deck?.name, deck?.format, deck?.private, deck?.description, dispatch, params.deckId])
     
     const handleEditDeck = async(e) => {
         e.preventDefault()

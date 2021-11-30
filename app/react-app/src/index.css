@@ -1,9 +1,10 @@
 /* TODO Add site wide styles */
 
 :root {
-    --primary: #131a23;
-    --secondary: #6b7c92;
-    --accent: #ff7a00;
+    --body: #541D43;
+    --primary: #36102A;
+    --secondary: #c580b0;
+    --accent: #FA50C7;
 }
 
 * {
@@ -14,7 +15,7 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: var(--secondary);
+    background-color: var(--body);
 }
 
 a {
