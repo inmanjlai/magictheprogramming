@@ -1,5 +1,5 @@
-import NavBar from "../Navbar/NavBar"
 import './Splash.css'
+import SplashNav from './SplashNav/SplashNav'
 
 const Splash = () => {
     return (
@@ -8,7 +8,7 @@ const Splash = () => {
                 <img src='https://www.moxfield.com/img/hero-bg.jpg' alt="" />
             </div>
             <div className="navContainer">
-                <NavBar />
+                <SplashNav />
             </div>
             <div className="mainContainer">
 
