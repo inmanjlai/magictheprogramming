@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { deleteOneDeck, getOneDeck } from '../../store/deck'
 import { addOneCard, getOneDecklist, removeAllOfOneCard, removeOneCard } from '../../store/decklist'
 import { addOneComment, getAllComments, removeOneComment } from '../../store/comment'
-import meren from '../../images/meren.jpg'
 import './SingleDeck.css'
 
 const SingleDeck = () => {
@@ -22,14 +21,12 @@ const SingleDeck = () => {
     const [search, setSearch] = useState("")
     const [results, setResults] = useState([])
     const [comment, setComment] = useState('')
-    const [image, setImage] = useState("")
 
     useEffect(() => {
         (async() => {
             const response = await fetch(`https://api.scryfall.com/cards/autocomplete?q=${search}`)
             const data = await response.json()
             setResults(data.data)
-            setImage(meren)
         })();
 
     }, [search]) // 
@@ -38,6 +35,9 @@ const SingleDeck = () => {
     const user = useSelector((state) => state.session.user)
     const decklist = useSelector((state) => state.decklist)
     const comments = useSelector((state) => state.comments)
+    const commander = deck?.commander
+
+
 
     // THIS IS HOW WE CAN SEPERATE CARDS INTO CATEGORIES ->
     const enchantments = decklist?.filter((card) => card?.card_info?.type_line.includes("Enchantment"))
@@ -153,14 +153,16 @@ const SingleDeck = () => {
         <div>
 
             <div className="deck-details">
-                <h1>{deck?.name}</h1>
-                <p>{deck?.description}</p>
-                <div><p><em>Crafted by</em> <strong>{deck?.owner.username}</strong> • {deck?.created_at}</p></div>
-                {userControls}
-                {/* <div className='showcase'>
-                    <img src={meren} className='showcase-image' alt="showcase" />
+                <div className='text'>
+                    <h1>{deck?.name}</h1>
+                    <p>{deck?.description}</p>
+                    <div><p><em>Crafted by</em> <strong>{deck?.owner.username}</strong> • {deck?.created_at}</p></div>
+                    {userControls}
+                </div>
+                <div className='showcase'>
+                    <img src={commander?.art_crop} className='showcase-image' alt="showcase" />
                     <div className='gradient'></div>
-                </div> */}
+                </div>
             </div>
 
 

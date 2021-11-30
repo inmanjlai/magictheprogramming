@@ -30,6 +30,32 @@ export const addOneCard = (deckId, cardName) => async (dispatch) => {
   }
 };
 
+export const createCard = (cardName) => async (dispatch) => {
+  const response = await fetch(`/api/cards/commanders/${cardName}/`,
+    {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+    });
+
+  if (response.ok) {
+    const card = await response.json()
+    return card
+  }
+};
+
+export const changeDecksCommander = (deckId, cardName) => async (dispatch) => {
+  const response = await fetch(`/api/cards/commanders/${deckId}/${cardName}/`,
+    {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+    });
+
+  if (response.ok) {
+    const card = await response.json()
+    return card
+  }
+};
+
 export const removeOneCard = (deckId, cardId) => async (dispatch) => {
   const response = await fetch(`/api/decks/${deckId}/${cardId}/`,
     {

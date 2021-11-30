@@ -11,6 +11,7 @@ class Card(db.Model):
     mana_cost = db.Column(db.String(40), nullable=True)
     colors = db.Column(db.String(100), nullable=False)
     image_url = db.Column(db.String(6000), nullable=False)
+    art_crop = db.Column(db.String(6000), nullable=False)
 
     def to_dict(self):
         return {
@@ -22,4 +23,5 @@ class Card(db.Model):
             'mana_cost': self.mana_cost,
             'colors': self.colors,
             'image_url': self.image_url,
+            'art_crop': self.art_crop,
         }
