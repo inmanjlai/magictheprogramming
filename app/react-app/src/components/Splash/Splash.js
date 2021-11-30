@@ -1,5 +1,6 @@
 import './Splash.css'
 import SplashNav from './SplashNav/SplashNav'
+import searchIcon from '../../images/search.svg'
 
 const Splash = () => {
     return (
@@ -11,7 +12,17 @@ const Splash = () => {
                 <SplashNav />
             </div>
             <div className="mainContainer">
-
+                <div className="hero">
+                    <div className="title">Deck Building made easy.</div>
+                    <div className="subtitle">Build your Commander Deck for Magic: the Gathering. </div>
+                    <div className="search">
+                        <div className="iconContainer">
+                            <img src={searchIcon} alt="" />
+                        </div>
+                        <input type="text" placeholder='Search for decks, cards, or users' />
+                    </div>
+                </div>
+                <div className="recentDecks"></div>
             </div>
             <div className="footer"></div>
         </>
