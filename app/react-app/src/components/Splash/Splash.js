@@ -4,7 +4,7 @@ import searchIcon from '../../images/search.svg'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { getAllDecks } from '../../store/deck'
-import { NavLink, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 const Splash = () => {
     const dispatch = useDispatch()
@@ -14,11 +14,14 @@ const Splash = () => {
         dispatch(getAllDecks())
     }, [dispatch])
 
-    const decks = useSelector((state) => state.decks)
+    
+    const decks = useSelector((state) => state.decks.reverse())
     const deckComponent = decks?.map((deck) => {
         return (
           <div onClick={() => history.push(`/decks/${deck.id}`)} className='gridItem' key={deck.id}>
-            <NavLink to={`/decks/${deck.id}`}>{deck.name}</NavLink>
+            <div className='deck-name'>{deck?.name}</div>
+            <div className='commander-name'>{deck?.commander?.name}</div>
+            <img id='grid-item-background' src={deck?.commander?.art_crop} alt="commander" />
           </div>
         );
       });
