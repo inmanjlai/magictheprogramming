@@ -31,6 +31,7 @@
   letter-spacing: 1px;
   line-height: 66px;
   color: white;
+  text-align: center;
 }
 
 .subtitle {
@@ -38,6 +39,7 @@
   font-weight: 300;
   color: white;
   margin-bottom: 55px;
+  text-align: center;
 }
 
 .search {
@@ -46,7 +48,7 @@
   height: 40px;
   align-items: center;
   border-radius: 5px;
-  min-width: 300px;
+  min-width: 400px;
   width: 720px;
   max-width: 35%;
 }
@@ -147,4 +149,29 @@
 
 .gridItem:hover {
   border: 3px solid var(--secondary);
+}
+
+@media screen and (max-width: 1600px) {
+    .gridContainer {
+        --num-cols: 3;
+        width: 1250px;
+    }
+}
+@media screen and (max-width: 1400px) {
+    .gridContainer {
+        --num-cols: 3;
+        width: 1100px;
+    }
+}
+@media screen and (max-width: 1100px) {
+    .gridContainer {
+        --num-cols: 2;
+        width: 700px;
+    }
+}
+@media screen and (max-width: 750px) {
+    .gridContainer {
+        --num-cols: 1;
+        width: 500px;
+    }
 }
