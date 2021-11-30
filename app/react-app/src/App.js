@@ -12,6 +12,7 @@ import Deck from './components/Deck';
 import SingleDeck from './components/Deck/SingleDeck';
 import CreateDeck from './components/Deck/CreateDeck';
 import EditDeck from './components/Deck/EditDeck';
+import Splash from './components/Splash/Splash';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -30,46 +31,53 @@ function App() {
  
   return (
     <BrowserRouter>
-      <NavBar />
       <Switch>
 
         <Route path='/login' exact={true}>
+          <NavBar />
           <LoginForm />
         </Route>
 
         <Route path='/sign-up' exact={true}>
+          <NavBar />
           <SignUpForm />
         </Route>
 
         <ProtectedRoute path='/users' exact={true} >
+          <NavBar />
           <UsersList/>
         </ProtectedRoute>
 
         <ProtectedRoute path='/users/:userId' exact={true} >
+          <NavBar />
           <User />
         </ProtectedRoute>
 
         <Route path='/' exact={true} >
-          <h1>My Home Page</h1>
+          <Splash />
         </Route>
 
         {/* CUSTOM ROUTES */}
         <Route path='/decks' exact={true}>
           <h2>See a list of decks</h2>
+          <NavBar />
           <Deck />
         </Route>
 
         <Route path='/decks/:deckId' exact={true}>
+          <NavBar />
           <SingleDeck />
         </Route>
 
         <ProtectedRoute path='/new-deck' exact={true} >
           <h1>Create a deck</h1>
+          <NavBar />
           <CreateDeck />
         </ProtectedRoute>
 
         <ProtectedRoute path='/decks/:deckId/edit' exact={true} >
           <h1>Edit deck</h1>
+          <NavBar />
           <EditDeck />
         </ProtectedRoute>
 
