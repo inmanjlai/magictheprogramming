@@ -145,3 +145,26 @@
     max-width: 1300px;
     flex-wrap: wrap;
 }
+
+.decklist-cards > li {
+    margin-bottom: 10px;
+}
+
+.decklist-cards li h3 {
+    margin-bottom: 10px;
+}
+
+.decklist-cards li div li:hover {
+    text-decoration: underline;
+}
+
+.decklist-cards li div span {
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.decklist-cards li div span:hover {
+    font-weight: bold;
+    cursor: pointer;
+}

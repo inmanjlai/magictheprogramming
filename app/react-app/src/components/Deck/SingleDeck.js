@@ -45,9 +45,9 @@ const SingleDeck = () => {
     }
     
     // THIS IS HOW WE CAN SEPERATE CARDS INTO CATEGORIES ->
-    const commander = deck?.commander
     
-    const creatures = decklist?.filter((card) => card?.card_info?.type_line.includes("Creature"))
+    const commander = deck?.commander
+    const creatures = decklist?.filter((card) => card?.card_info?.type_line.includes("Creature") && !(card?.card_info?.name?.includes(commander?.name)))
     const artifacts = decklist?.filter((card) => card?.card_info?.type_line.includes("Artifact"))
     const sorceries = decklist?.filter((card) => card?.card_info?.type_line.includes("Sorcery"))
     const instants = decklist?.filter((card) => card?.card_info?.type_line.includes("Instant"))
@@ -103,11 +103,11 @@ const SingleDeck = () => {
             <div key={card.card_info.id}>
 
                 {/* SHOWS A CARD'S NAME, QUANTITY AND OPTION TO REMOVE IT FROM THE DECK */}
-                <li>{card?.card_info.name} - {card?.quantity} {deck?.owner_id === user?.id && <button onClick={() => handleDeleteCard(card.card_info.id)}>Remove one</button>}</li>
+                <li>{card?.card_info.name} - {card?.quantity} {deck?.owner_id === user?.id && <span onClick={() => handleDeleteCard(card.card_info.id)}>DELETE</span>}
 
                 {card.quantity > 1 && deck.owner_id === user?.id && (
-                    <button onClick={() => handleDeleteAllCopies(card.card_info.id)}>Remove all</button>
-                )}
+                    <span onClick={() => handleDeleteAllCopies(card.card_info.id)}>DELETE ALL</span>
+                )}</li>
             </div>
         )
     })
@@ -115,27 +115,35 @@ const SingleDeck = () => {
     const cardsInDeck = (
         <ul className='decklist-cards'>
             <li>
-                <h2>Creatures ({findDeckSize(creatures)})</h2>
+                <h3>Commander</h3>
+                <div key={commander?.card_info?.id}>
+
+                {/* SHOWS A CARD'S NAME, QUANTITY AND OPTION TO REMOVE IT FROM THE DECK */}
+                <li>{commander?.name}</li>
+                </div>
+            </li>
+            <li>
+                <h3>Creatures ({findDeckSize(creatures)})</h3>
                     {decklistComponent(creatures)}
             </li>
             <li>
-                <h2>Artifacts({findDeckSize(artifacts)})</h2>
+                <h3>Artifacts({findDeckSize(artifacts)})</h3>
                     {decklistComponent(artifacts)}
             </li>
             <li>
-                <h2>Enchantments({findDeckSize(enchantments)})</h2>
+                <h3>Enchantments({findDeckSize(enchantments)})</h3>
                     {decklistComponent(enchantments)}
             </li>
             <li>
-                <h2>Sorceries({findDeckSize(sorceries)})</h2>
+                <h3>Sorceries({findDeckSize(sorceries)})</h3>
                     {decklistComponent(sorceries)}
             </li>
             <li>
-                <h2>Instants({findDeckSize(instants)})</h2>
+                <h3>Instants({findDeckSize(instants)})</h3>
                     {decklistComponent(instants)}
             </li>
             <li>
-                <h2>Lands({findDeckSize(lands)})</h2>
+                <h3>Lands({findDeckSize(lands)})</h3>
                     {decklistComponent(lands)}
             </li>
         </ul>
