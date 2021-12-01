@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Redirect, useHistory } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import './SignUp.css'
-import icon from '../../images/logoIcon.png'
+import icon from '../../images/untitled.png'
 
 const SignUpForm = () => {
-  const history = useHistory()
+  const history = useHistory();
 
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
@@ -110,7 +110,6 @@ const SignUpForm = () => {
         </div>
         <button type='submit'>Sign Up</button>
       </form>
-
     </div>
   );
 };

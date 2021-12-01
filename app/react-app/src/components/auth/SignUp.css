@@ -51,9 +51,12 @@
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 7px;
   }
 
+  .sign-icon {
+    height: 55px;
+  }
 
   @media screen and (max-width: 1120px) {
     .sign-hero {
