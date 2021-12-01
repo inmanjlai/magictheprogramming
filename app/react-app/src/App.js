@@ -69,7 +69,6 @@ function App() {
         </Route>
 
         <ProtectedRoute path='/new-deck' exact={true} >
-          <h1>Create a deck</h1>
           <NavBar />
           <CreateDeck />
         </ProtectedRoute>

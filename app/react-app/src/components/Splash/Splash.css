@@ -43,14 +43,28 @@
 }
 
 .search {
+  position: relative;
   display: flex;
   background: white;
   height: 40px;
   align-items: center;
   border-radius: 5px;
   min-width: 400px;
-  width: 720px;
-  max-width: 35%;
+  width: 35%;
+  max-width: 720px;
+}
+
+.search input {
+  outline: none;
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: rgb(73, 80, 87);
+  padding: 0px 10px;
+  min-width: 400px;
+  width: 34vw;
+  max-width: 720px;
 }
 
 .search .iconContainer {
@@ -67,15 +81,43 @@
     brightness(93%) contrast(95%);
 }
 
-.search input {
-  outline: none;
-  background: none;
-  border: none;
-  width: 390px;
-  font-size: 1.25rem;
-  line-height: 1.5;
-  color: rgb(73, 80, 87);
-  max-width: 95%;
+.search-results2 ul {
+  position: absolute;
+  width: 100%;
+  max-height: 190px;
+  top: 34px;
+  background-color: white;
+  overflow-y: auto;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.search-results2 li {
+  padding: 5px 10px;
+  transition: 0.1s;
+  border-bottom: 1px solid #c2c2c2;
+  cursor: pointer;
+}
+
+.search-results2 li:first-child {
+  border-top: 1px solid #c2c2c2;
+}
+
+.search-results2 li:hover {
+  background-color: #c2c2c2;
+}
+
+.search-results2 ul::-webkit-scrollbar-track {
+  z-index: -1;
+}
+
+.search-results2 ul::-webkit-scrollbar-thumb {
+  background-color: var(--secondary);
+  border-radius: 5px;
+}
+
+.search-results2 ul::-webkit-scrollbar {
+  width: 10px;
 }
 
 .splashDecksContainer {
@@ -173,6 +215,7 @@
 .gridItem:hover {
   border: 3px solid var(--secondary);
 }
+
 
 @media screen and (max-width: 1600px) {
     .gridContainer {
