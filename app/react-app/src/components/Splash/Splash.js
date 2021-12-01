@@ -18,18 +18,26 @@ const Splash = () => {
     const decks = useSelector((state) => state.decks.reverse())
     const deckComponent = decks?.map((deck) => {
         return (
-          <div onClick={() => history.push(`/decks/${deck.id}`)} className='gridItem' key={deck.id}>
-            <div className='deck-name'>{deck?.name}</div>
-            <div className='commander-name'>{deck?.commander?.name}</div>
-            <img id='grid-item-background' src={deck?.commander?.art_crop} alt="commander" />
-          </div>
+          <>
+            <div className="grid-item-container">
+                <div onClick={() => history.push(`/decks/${deck.id}`)} className='gridItem' key={deck.id}>
+                    <div className='deck-name'>{deck?.name}</div>
+                    <div className='commander-name'>{deck?.commander?.name}</div>
+                    <img id='grid-item-background' src={deck?.commander?.art_crop} alt="commander" />
+                </div>
+                <div className="splash-user">
+                    <span className='username' onClick={() => history.push(`/users/${deck.owner_id}`)}>{deck?.owner?.username}</span>
+                    <span>{deck?.created_at}</span>
+                </div>
+            </div>
+          </>  
         );
       });
 
     return (
         <>
             <div className='hero-bg'>
-                <img src='https://www.moxfield.com/img/hero-bg.jpg' alt="" />
+                <img src='https://www.moxfield.com/img/hero-bg.jpg' alt="mox" />
             </div>
             <div className="navContainer">
                 <SplashNav />
