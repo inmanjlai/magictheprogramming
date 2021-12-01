@@ -1,13 +1,11 @@
-nav {
-    background-color: var(--secondary);
-    color: var(--primary);
+.nav {
+    background-color: transparent;
+    color: white;
     height: 60px;
-    border-bottom: 1px solid rgba(19, 36, 92, 0.2);
     font-weight: bold;
-    /* box-shadow:0 1px 10px rgba(19, 36, 92, 0.2); */
 }
 
-nav ul {
+.nav ul {
     display: flex;
     gap: 15px;
     align-items: center;
@@ -34,4 +32,11 @@ nav ul {
     flex-grow: 1;
     justify-content: flex-end;
     margin-right: 25px;
+}
+
+.splash-log button {
+    color: var(--secondary);
+    border: 3px solid var(--secondary);
+    border: none;
+    border-radius: 5px;
 }

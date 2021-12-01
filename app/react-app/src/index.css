@@ -26,3 +26,8 @@ a {
 ul {
     list-style: none;
 }
+
+.justify-content-center {
+    display: flex;
+    justify-content: center;
+}
