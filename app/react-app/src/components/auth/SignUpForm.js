@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Redirect, useHistory } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import './SignUp.css'
-import icon from '../../images/untitled.png'
+import icon from '../../images/logoIcon.png'
 
 const SignUpForm = () => {
   const history = useHistory();
@@ -59,58 +59,64 @@ const SignUpForm = () => {
         <div className="sign-title">Deck building made easy.</div>
         <div className="sign-subtitle">Build your Commander Deck for Magic: the Gathering. </div>
       </div>
-      <form onSubmit={onSignUp}>
-        <div>
-          {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
-          ))}
-        </div>
-        <div className="to-home-container display-flicker">
-          <div onClick={() => history.push('/')} className='to-home'>
-            <img className='sign-icon' src={icon} alt="logo" />
-            <div className="sign-name">Upkeep</div>
+      <div className="form-container">
+        <form onSubmit={onSignUp}>
+          <div>
+            {errors.map((error, ind) => (
+              <div key={ind}>{error}</div>
+            ))}
           </div>
+          <div className="display-flicker form-home-container">
+            <div onClick={() => history.push('/')} className='to-home'>
+              <img className='sign-icon' src={icon} alt="logo" />
+              <div className="sign-name">Upkeep</div>
+            </div>
+          </div>
+          <h1>Register for Upkeep</h1>
+          <h3>User Name</h3>
+          <div className='form-item'>
+            <input
+              type='text'
+              name='username'
+              onChange={updateUsername}
+              value={username}
+            ></input>
+          </div>
+          <h3>Email</h3>
+          <div className='form-item'>
+            <input
+              type='text'
+              name='email'
+              onChange={updateEmail}
+              value={email}
+            ></input>
+          </div>
+          <h3>Password</h3>
+          <div className='form-item'>
+            <input
+              type='password'
+              name='password'
+              onChange={updatePassword}
+              value={password}
+            ></input>
+          </div>
+          <h3>Confirm Password</h3>
+          <div className='form-item'>
+            <input
+              type='password'
+              name='repeat_password'
+              onChange={updateRepeatPassword}
+              value={repeatPassword}
+              required={true}
+            ></input>
+          </div>
+          <div className="switch">
+            <button type='submit'>Sign Up</button>
+            <div>Already have an account? <span onClick={() => history.push('/login')}>Log In</span></div>
+          </div>
+        </form>
         </div>
-        <div>
-          <label>User Name</label>
-          <input
-            type='text'
-            name='username'
-            onChange={updateUsername}
-            value={username}
-          ></input>
-        </div>
-        <div>
-          <label>Email</label>
-          <input
-            type='text'
-            name='email'
-            onChange={updateEmail}
-            value={email}
-          ></input>
-        </div>
-        <div>
-          <label>Password</label>
-          <input
-            type='password'
-            name='password'
-            onChange={updatePassword}
-            value={password}
-          ></input>
-        </div>
-        <div>
-          <label>Repeat Password</label>
-          <input
-            type='password'
-            name='repeat_password'
-            onChange={updateRepeatPassword}
-            value={repeatPassword}
-            required={true}
-          ></input>
-        </div>
-        <button type='submit'>Sign Up</button>
-      </form>
-    </div>
+      </div>
   );
 };
 
