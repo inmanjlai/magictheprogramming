@@ -5,6 +5,8 @@ import { deleteOneDeck, getOneDeck } from '../../store/deck'
 import { addOneCard, getOneDecklist, removeAllOfOneCard, removeOneCard } from '../../store/decklist'
 import { addOneComment, getAllComments, removeOneComment } from '../../store/comment'
 import './SingleDeck.css'
+import dropdown from '../../images/dropdown.svg'
+import cancel from '../../images/cancel.svg'
 
 const SingleDeck = () => {
 
@@ -48,6 +50,7 @@ const SingleDeck = () => {
     
     const commander = deck?.commander
     const creatures = decklist?.filter((card) => card?.card_info?.type_line.includes("Creature") && !(card?.card_info?.name?.includes(commander?.name)))
+    const planeswalkers = decklist?.filter((card) => card?.card_info?.type_line.includes("Planeswalker"))
     const artifacts = decklist?.filter((card) => card?.card_info?.type_line.includes("Artifact"))
     const sorceries = decklist?.filter((card) => card?.card_info?.type_line.includes("Sorcery"))
     const instants = decklist?.filter((card) => card?.card_info?.type_line.includes("Instant"))
@@ -98,16 +101,35 @@ const SingleDeck = () => {
         
     }
 
+    const displayDropdown = (card, element) => {
+        const content = document.querySelector(`.card${card?.card_info?.id}`)
+        content.classList.toggle("shown")
+    }
+
     const decklistComponent = (type) => type.map((card) => {
         return (
             <div key={card.card_info.id}>
 
                 {/* SHOWS A CARD'S NAME, QUANTITY AND OPTION TO REMOVE IT FROM THE DECK */}
-                <li>{card?.card_info.name} - {card?.quantity} {deck?.owner_id === user?.id && <span onClick={() => handleDeleteCard(card.card_info.id)}>DELETE</span>}
+                <li className='card'>{card?.quantity} {card?.card_info.name} 
+                    <div className='card-dropdown'>
+                        <img src={dropdown} alt="dropdown-card" 
+                            onClick={(e) => {
+                                displayDropdown(card, e.target)
+                            }}
+                        />
 
-                {card.quantity > 1 && deck.owner_id === user?.id && (
-                    <span onClick={() => handleDeleteAllCopies(card.card_info.id)}>DELETE ALL</span>
-                )}</li>
+                        {/* dropdown menu to interact with cards */}
+                        <div className={`card${card?.card_info?.id} dropdown-content`}>
+                            {deck?.owner_id === user?.id && 
+                            <span className='card-controls' onClick={() => handleDeleteCard(card.card_info.id)}>DELETE</span>}
+
+                            {card.quantity > 1 && deck.owner_id === user?.id && (
+                                <span className='card-controls' onClick={() => handleDeleteAllCopies(card.card_info.id)}>DELETE ALL</span>)} 
+                        </div>
+
+                    </div>
+                </li>
             </div>
         )
     })
@@ -119,7 +141,7 @@ const SingleDeck = () => {
                 <div key={commander?.card_info?.id}>
 
                 {/* SHOWS A CARD'S NAME, QUANTITY AND OPTION TO REMOVE IT FROM THE DECK */}
-                <li>{commander?.name}</li>
+                <li>1 {commander?.name}</li>
                 </div>
             </li>
             <li>
@@ -127,23 +149,27 @@ const SingleDeck = () => {
                     {decklistComponent(creatures)}
             </li>
             <li>
-                <h3>Artifacts({findDeckSize(artifacts)})</h3>
+                <h3>Planeswalkers ({findDeckSize(planeswalkers)})</h3>
+                    {decklistComponent(planeswalkers)}
+            </li>
+            <li>
+                <h3>Artifacts ({findDeckSize(artifacts)})</h3>
                     {decklistComponent(artifacts)}
             </li>
             <li>
-                <h3>Enchantments({findDeckSize(enchantments)})</h3>
+                <h3>Enchantments ({findDeckSize(enchantments)})</h3>
                     {decklistComponent(enchantments)}
             </li>
             <li>
-                <h3>Sorceries({findDeckSize(sorceries)})</h3>
+                <h3>Sorceries ({findDeckSize(sorceries)})</h3>
                     {decklistComponent(sorceries)}
             </li>
             <li>
-                <h3>Instants({findDeckSize(instants)})</h3>
+                <h3>Instants ({findDeckSize(instants)})</h3>
                     {decklistComponent(instants)}
             </li>
             <li>
-                <h3>Lands({findDeckSize(lands)})</h3>
+                <h3>Lands ({findDeckSize(lands)})</h3>
                     {decklistComponent(lands)}
             </li>
         </ul>
@@ -217,10 +243,20 @@ const SingleDeck = () => {
                 searchBar
             )}
 
-            <div>
-                <h3>Decklist ({findDeckSize(decklist)})</h3>
-                {cardsInDeck}
+            <div className='deck-size'>
+                <p>{findDeckSize(decklist)} / 100 cards in deck</p>
+                    <ul className='type-amounts'>
+                        <li>Creatures: {findDeckSize(creatures)}</li>
+                        <li>Artifacts: {findDeckSize(artifacts)} </li>
+                        <li>Planeswalkers: {findDeckSize(planeswalkers)} </li>
+                        <li>Enchantments: {findDeckSize(enchantments)} </li>
+                        <li>Lands: {findDeckSize(lands)} </li>
+                        <li>Instants: {findDeckSize(instants)} </li>
+                        <li>Sorceries: {findDeckSize(sorceries)}</li>
+                    </ul>
             </div>
+            
+            {cardsInDeck}
 
             <h3>Comments</h3>
             {user?.id && (
