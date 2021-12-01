@@ -35,17 +35,25 @@ const SingleDeck = () => {
     const user = useSelector((state) => state.session.user)
     const decklist = useSelector((state) => state.decklist)
     const comments = useSelector((state) => state.comments)
-    const commander = deck?.commander
-
-
-
-    // THIS IS HOW WE CAN SEPERATE CARDS INTO CATEGORIES ->
-    const enchantments = decklist?.filter((card) => card?.card_info?.type_line.includes("Enchantment"))
-    console.log(enchantments, "ENCHANTMENTS")
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
+    
+    const findDeckSize = (decklist) => {
+        let count = 0;
+        for (let card of decklist) {
+            count += card.quantity;
+        }
+        return count;
     }
+    
+    // THIS IS HOW WE CAN SEPERATE CARDS INTO CATEGORIES ->
+    const commander = deck?.commander
+    
+    const creatures = decklist?.filter((card) => card?.card_info?.type_line.includes("Creature"))
+    const artifacts = decklist?.filter((card) => card?.card_info?.type_line.includes("Artifact"))
+    const sorceries = decklist?.filter((card) => card?.card_info?.type_line.includes("Sorcery"))
+    const instants = decklist?.filter((card) => card?.card_info?.type_line.includes("Instant"))
+    const enchantments = decklist?.filter((card) => card?.card_info?.type_line.includes("Enchantment"))
+    const lands = decklist?.filter((card) => card?.card_info?.type_line.includes("Land"))
+
 
     const handleCreateComment = (e) => {
         e.preventDefault()
@@ -90,7 +98,7 @@ const SingleDeck = () => {
         
     }
 
-    const decklistComponent = decklist.map((card) => {
+    const decklistComponent = (type) => type.map((card) => {
         return (
             <div key={card.card_info.id}>
 
@@ -103,6 +111,35 @@ const SingleDeck = () => {
             </div>
         )
     })
+
+    const cardsInDeck = (
+        <ul className='decklist-cards'>
+            <li>
+                <h2>Creatures ({findDeckSize(creatures)})</h2>
+                    {decklistComponent(creatures)}
+            </li>
+            <li>
+                <h2>Artifacts({findDeckSize(artifacts)})</h2>
+                    {decklistComponent(artifacts)}
+            </li>
+            <li>
+                <h2>Enchantments({findDeckSize(enchantments)})</h2>
+                    {decklistComponent(enchantments)}
+            </li>
+            <li>
+                <h2>Sorceries({findDeckSize(sorceries)})</h2>
+                    {decklistComponent(sorceries)}
+            </li>
+            <li>
+                <h2>Instants({findDeckSize(instants)})</h2>
+                    {decklistComponent(instants)}
+            </li>
+            <li>
+                <h2>Lands({findDeckSize(lands)})</h2>
+                    {decklistComponent(lands)}
+            </li>
+        </ul>
+    )
 
     const commentsComponent = comments.map((comment) => {
         return (
@@ -123,22 +160,23 @@ const SingleDeck = () => {
     })
 
     const searchBar = (
-        <div>
-                    <form onSubmit={handleSubmit}>
-                        <input 
-                            type="search"
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                        />
-                        <div>
-                            {results.length > 0 && (
-                                <ul>
-                                    {searchResults}
-                                </ul>
-                            )}
-                        </div>
-                    </form>
+        <div className='search-bar'>
+            <div className="drop-down">
+                <input 
+                    type="text"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="Search for a Magic card"
+                />
+                <div className='search-results'>
+                    {results.length > 0 && (
+                        <ul>
+                            {searchResults}
+                        </ul>
+                    )}
                 </div>
+            </div>
+        </div>
     )
 
     const userControls = (
@@ -171,10 +209,10 @@ const SingleDeck = () => {
                 searchBar
             )}
 
-            <h3>Decklist</h3>
-            <ul>
-                {decklistComponent}
-            </ul>
+            <div>
+                <h3>Decklist ({findDeckSize(decklist)})</h3>
+                {cardsInDeck}
+            </div>
 
             <h3>Comments</h3>
             {user?.id && (
