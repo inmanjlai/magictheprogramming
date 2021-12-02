@@ -1,9 +1,10 @@
 nav {
-    background-color: var(--secondary);
-    color: var(--primary);
+    background-color: var(--primary);
+    color: var(--secondary);
     height: 60px;
     border-bottom: 1px solid rgba(19, 36, 92, 0.2);
     font-weight: bold;
+    border-bottom: 1px solid rgba(218, 187, 223, 0.253);
     /* box-shadow:0 1px 10px rgba(19, 36, 92, 0.2); */
 }
 

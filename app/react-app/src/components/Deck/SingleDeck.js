@@ -13,12 +13,17 @@ const SingleDeck = () => {
     const dispatch = useDispatch()
     const params = useParams()
     const history = useHistory()
+    
+    const deck = useSelector((state) => state.decks)[0]
+    const commander = deck?.commander
+    const [currentCard, setCurrentCard] = useState(commander?.image_url)
 
     useEffect(() => {
         dispatch(getOneDeck(params.deckId))
         dispatch(getOneDecklist(params.deckId))
         dispatch(getAllComments(params.deckId))
-    }, [dispatch, params.deckId])
+        setCurrentCard(commander?.image_url)
+    }, [dispatch, params.deckId, commander?.image_url])
 
     const [search, setSearch] = useState("")
     const [results, setResults] = useState([])
@@ -33,7 +38,8 @@ const SingleDeck = () => {
 
     }, [search]) // 
 
-    const deck = useSelector((state) => state.decks)[0]
+    
+
     const user = useSelector((state) => state.session.user)
     const decklist = useSelector((state) => state.decklist)
     const comments = useSelector((state) => state.comments)
@@ -48,7 +54,8 @@ const SingleDeck = () => {
     
     // THIS IS HOW WE CAN SEPERATE CARDS INTO CATEGORIES ->
     
-    const commander = deck?.commander
+   
+
     const creatures = decklist?.filter((card) => card?.card_info?.type_line.includes("Creature") && !(card?.card_info?.name?.includes(commander?.name)))
     const planeswalkers = decklist?.filter((card) => card?.card_info?.type_line.includes("Planeswalker"))
     const artifacts = decklist?.filter((card) => card?.card_info?.type_line.includes("Artifact"))
@@ -56,6 +63,7 @@ const SingleDeck = () => {
     const instants = decklist?.filter((card) => card?.card_info?.type_line.includes("Instant"))
     const enchantments = decklist?.filter((card) => card?.card_info?.type_line.includes("Enchantment"))
     const lands = decklist?.filter((card) => card?.card_info?.type_line.includes("Land"))
+
 
 
     const handleCreateComment = (e) => {
@@ -103,6 +111,8 @@ const SingleDeck = () => {
 
     const displayDropdown = (card, element) => {
         const content = document.querySelector(`.card${card?.card_info?.id}`)
+        // if (element.src === '../../images/dropdown.svg') element.src = '../../images/cancel.svg'
+        // else element.src = '../../images/dropdown.svg'
         content.classList.toggle("shown")
     }
 
@@ -111,7 +121,7 @@ const SingleDeck = () => {
             <div key={card.card_info.id}>
 
                 {/* SHOWS A CARD'S NAME, QUANTITY AND OPTION TO REMOVE IT FROM THE DECK */}
-                <li className='card'>{card?.quantity} {card?.card_info.name} 
+                <li className='card' onMouseOver={(e) => setCurrentCard(card?.card_info?.image_url)}>{card?.quantity} {card?.card_info.name} 
                     <div className='card-dropdown'>
                         <img src={dropdown} alt="dropdown-card" 
                             onClick={(e) => {
@@ -122,10 +132,10 @@ const SingleDeck = () => {
                         {/* dropdown menu to interact with cards */}
                         <div className={`card${card?.card_info?.id} dropdown-content`}>
                             {deck?.owner_id === user?.id && 
-                            <span className='card-controls' onClick={() => handleDeleteCard(card.card_info.id)}>DELETE</span>}
+                            <span className='card-controls' onClick={() => handleDeleteCard(card.card_info.id)}>Remove</span>}
 
                             {card.quantity > 1 && deck.owner_id === user?.id && (
-                                <span className='card-controls' onClick={() => handleDeleteAllCopies(card.card_info.id)}>DELETE ALL</span>)} 
+                                <span className='card-controls' onClick={() => handleDeleteAllCopies(card.card_info.id)}>Remove all</span>)} 
                         </div>
 
                     </div>
@@ -141,7 +151,7 @@ const SingleDeck = () => {
                 <div key={commander?.card_info?.id}>
 
                 {/* SHOWS A CARD'S NAME, QUANTITY AND OPTION TO REMOVE IT FROM THE DECK */}
-                <li>1 {commander?.name}</li>
+                <li onMouseOver={(e) => setCurrentCard(commander?.image_url)}>1 {commander?.name}</li>
                 </div>
             </li>
             <li>
@@ -224,6 +234,7 @@ const SingleDeck = () => {
     return (
         <div>
 
+
             <div className="deck-details">
                 <div className='text'>
                     <h1>{deck?.name}</h1>
@@ -242,6 +253,10 @@ const SingleDeck = () => {
             {decklistComponent && (user?.id === deck?.owner_id) && (
                 searchBar
             )}
+
+            <div className='card-display'>
+                <img src={currentCard} alt="currentCard"/>
+            </div>
 
             <div className='deck-size'>
                 <p>{findDeckSize(decklist)} / 100 cards in deck</p>

@@ -32,8 +32,8 @@
     top: 0;
     left: 0;
     z-index: 10;
-    background: rgb(54,16,42);
-    background: linear-gradient(90deg, rgba(54,16,42,1) 0%, rgba(54,16,42,0.3449754901960784) 100%);
+    background: rgb(49,29,54);
+    background: linear-gradient(90deg, rgba(49,29,54,1) 0%, rgba(54,16,42,0.3449754901960784) 100%);
     height: 100%;
     width: 100%;
 }
@@ -112,6 +112,7 @@
     overflow-y: auto;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+    z-index: 40;
 }
 
 .search-results li {
@@ -193,21 +194,23 @@
 
 .dropdown-content {
     position: absolute;
-    background-color: white;
+    background-color: #333333;
     pointer-events: none;
     visibility: hidden;
     top: 21px;
     right: 0;
+    border-radius: 5px;
 }
 
 .shown {
     visibility: visible;
     pointer-events: auto;
     z-index: 10;
-    color: #525252;
+    color: rgb(206, 75, 75);
     display: flex;
     flex-direction: column;
     width: max-content;
+    border: 1px solid #525252;
 }
 
 .card-controls {
@@ -216,7 +219,7 @@
 }
 
 .card-controls:hover {
-    background-color: #cccccc;
+    background-color: #242424;
 }
 
 .card-dropdown img {
@@ -230,14 +233,15 @@
     position: fixed;
     bottom: 0;
     left: 0;
-    background-color: var(--primary);
+    background-color: var(--secondary);
     width: 100%;
     z-index: 10;
     padding: 10px calc(10% + 25px);
     display: flex;
-    color: #cccccc;
+    color: var(--primary);
     font-weight: bold;
     font-size: 14px;
+    align-items: center;
 }
 
 .type-amounts {
@@ -245,5 +249,11 @@
     display: flex;
     flex-direction: row;
     gap: 10px;
+    height: 25px;
+    align-items: center;
 }
 
+.card-display img {
+    height: 300px;
+    border-radius: 12px;
+}
