@@ -58,7 +58,6 @@ function App() {
 
         {/* CUSTOM ROUTES */}
         <Route path='/decks' exact={true}>
-          <h2>See a list of decks</h2>
           <NavBar />
           <Deck />
         </Route>
@@ -74,7 +73,6 @@ function App() {
         </ProtectedRoute>
 
         <ProtectedRoute path='/decks/:deckId/edit' exact={true} >
-          <h1>Edit deck</h1>
           <NavBar />
           <EditDeck />
         </ProtectedRoute>
