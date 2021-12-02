@@ -99,3 +99,15 @@
 .deck-footer button:hover {
     background-color: rgb(88, 23, 122);
 }
+
+@media screen and (max-width: 550px) {
+    .content-item input {
+        min-width: 350px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .content-item input {
+        min-width: 200px;
+    }
+}

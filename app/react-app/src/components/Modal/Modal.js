@@ -4,7 +4,7 @@ import './Modal.css'
 
 const MODAL_STYLES = {
     position: 'fixed',
-    top: '25%',
+    top: '33%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     backgroundColor: '#FFF',
