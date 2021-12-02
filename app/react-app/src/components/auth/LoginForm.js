@@ -33,6 +33,10 @@ const LoginForm = () => {
     return <Redirect to='/' />;
   }
 
+  const handleDemo = () => {
+    dispatch(login('demo@aa.io', 'password'));
+  }
+
   return (
     <div className="sign-container">
       <div className="sign-hero">
@@ -54,6 +58,7 @@ const LoginForm = () => {
               ))}
           </div>
           <div className="display-flicker form-home-container">
+            <div className="demo-login"></div>
             <div onClick={() => history.push('/')} className='to-home'>
               <img className='sign-icon' src={icon} alt="logo" />
               <div className="sign-name">Upkeep</div>
@@ -83,7 +88,7 @@ const LoginForm = () => {
               />
             <div className="switch">
               <button type='submit'>Login</button>
-              <div>Don't have an account? <span onClick={() => history.push('/sign-up')}>Sign Up</span></div>
+              <div>Don't have an account? <span onClick={() => history.push('/sign-up')}>Sign Up</span> or <span onClick={handleDemo}>Demo Login</span></div>
             </div>
           </div>
         </form>

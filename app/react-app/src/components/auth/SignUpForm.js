@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect, useHistory } from 'react-router-dom';
-import { signUp } from '../../store/session';
+import { login, signUp } from '../../store/session';
 import './SignUp.css'
 import icon from '../../images/logoIcon.png'
 
@@ -41,6 +41,10 @@ const SignUpForm = () => {
   const updateRepeatPassword = (e) => {
     setRepeatPassword(e.target.value);
   };
+
+  const handleDemo = () => {
+    dispatch(login('demo@aa.io', 'password'))
+  }
 
   if (user) {
     return <Redirect to='/' />;
@@ -112,7 +116,7 @@ const SignUpForm = () => {
           </div>
           <div className="switch">
             <button type='submit'>Sign Up</button>
-            <div>Already have an account? <span onClick={() => history.push('/login')}>Log In</span></div>
+            <div>Already have an account? <span onClick={() => history.push('/login')}>Log In</span> or  <span onClick={handleDemo}>Demo Login</span></div>
           </div>
         </form>
         </div>
