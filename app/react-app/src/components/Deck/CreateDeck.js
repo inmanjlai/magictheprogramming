@@ -4,7 +4,12 @@ import { useDispatch, useSelector } from "react-redux"
 import { createOneDeck } from "../../store/deck"
 import { createCard } from "../../store/decklist"
 
-const CreateDeck = () => {
+import exit from '../../images/close.svg'
+
+import './CreateDeck.css'
+
+
+const CreateDeck = ({onClose}) => {
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -62,43 +67,62 @@ const CreateDeck = () => {
 
      const searchBar = (
         <div>
-                    { commander === null ? (<form onSubmit={handleSubmit}>
-                        <input 
-                            type="search"
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            placeholder="Commander"
-                        />
-                        <div>
-                            {results.length > 0 && (
-                                <ul>
-                                    {searchResults}
-                                </ul>
-                            )}
-                        </div>
-                    </form>) : <h3>{commander?.card?.name}</h3>}
+            { commander === null ? (<form onSubmit={handleSubmit}>
+                <input 
+                    type="search"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="Search for a Commander"
+                    />
+                <div>
+                    {results.length > 0 && (
+                        <ul>
+                            {searchResults}
+                        </ul>
+                    )}
                 </div>
+            </form>) : <h3>{commander?.card?.name}</h3>}
+        </div>
     )
 
     return (
-        <div>
-            <form onSubmit={handleCreateDeck}>
-                <input type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Deck name"
-                />
-                <input type="text"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Description"
-                />
-                {searchBar}
-                <label htmlFor="visibility">Private</label>
-                <input type="checkbox" id="visibility" value={visibility} onChange={(e) => setVisibilty(!visibility)} />
-                <button>Create Deck</button>
-            </form>
-        </div>
+        <>
+        <form className='deck-form' onSubmit={handleCreateDeck}>
+            <div className="deck-header">
+                <h3 className='deck-title'>Add Deck</h3>
+                <img className='close-modal' onClick={onClose} src={exit} alt="X" />
+            </div>
+            <div className="deck-content">
+                <div className="content-item">
+                    <h5>Name</h5>
+                    <input type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Deck Name"
+                    />
+                </div>
+                <div className="content-item">
+                    <h5>Commander</h5>
+                    {searchBar}
+                </div>
+                <div className="content-item">
+                    <h5>Description</h5>
+                    <textarea type="text"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        placeholder="Deck Description"
+                    />
+                </div>
+            </div>
+            <div className="deck-footer">
+                <div className="footer-checkbox">
+                    <h5>Private</h5>
+                    <input type="checkbox" id="visibility" value={visibility} onChange={(e) => setVisibilty(!visibility)} />
+                </div>
+                <button>Create</button>
+            </div>
+        </form>
+        </>
     )
 }
 

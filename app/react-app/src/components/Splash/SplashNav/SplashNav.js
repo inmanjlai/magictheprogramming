@@ -1,14 +1,18 @@
 
-import React from 'react';
+import React, {useState} from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from '../../auth/LogoutButton';
 import './SplashNav.css'
 import logo from "../../../images/untitled.png"
+import Modal from '../../Modal/Modal';
+import CreateDeck from '../../Deck/CreateDeck';
 
 const SplashNav = () => {
 
   const user = useSelector((state) => state.session.user)
+
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <div className='nav'>
@@ -38,9 +42,13 @@ const SplashNav = () => {
         <li className='user-controls'>
           {user !== null && 
           <li>
-            <NavLink to='/new-deck' exact={true} activeClassName='active'>
+            <div className='modal' onClick={() => setIsOpen(true)}>Create Deck</div>
+            <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+              <CreateDeck onClose={() => setIsOpen(false)}/>
+            </Modal>
+            {/* <NavLink to='/new-deck' exact={true} activeClassName='active'>
               Create a deck
-            </NavLink>
+            </NavLink> */}
           </li>}
           {user === null ?
             <>
