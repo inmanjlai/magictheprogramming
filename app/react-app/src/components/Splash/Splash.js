@@ -3,9 +3,8 @@ import SplashNav from './SplashNav/SplashNav'
 import searchIcon from '../../images/search.svg'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-import { getAllDecks } from '../../store/deck'
+import { getAllDecksReverse } from '../../store/deck'
 import { useHistory, useParams } from 'react-router-dom'
-import { addOneCard } from '../../store/decklist'
 
 const Splash = () => {
     const dispatch = useDispatch()
@@ -13,7 +12,7 @@ const Splash = () => {
     const params = useParams()
     
     useEffect(() => {
-        dispatch(getAllDecks())
+        dispatch(getAllDecksReverse())
     }, [dispatch])
     
     const [search, setSearch] = useState("")
@@ -28,7 +27,7 @@ const Splash = () => {
 
     }, [search]) 
     
-    const decks = useSelector((state) => state.decks.reverse())
+    const decks = useSelector((state) => state.decks)
 
     const handleCardReroute = (e) => {
         // We want to reroute to a single card page
