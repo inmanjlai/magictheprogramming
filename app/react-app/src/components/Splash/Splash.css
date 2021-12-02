@@ -61,15 +61,18 @@
   font-size: 1.25rem;
   line-height: 1.5;
   color: rgb(73, 80, 87);
-  padding: 0px 10px;
-  min-width: 400px;
-  width: 34vw;
-  max-width: 720px;
+  min-width: 350px;
+  width: calc(34vw - 44px);
+  max-width: 660px;
+}
+
+.search-and-icon {
+  display: flex;
 }
 
 .search .iconContainer {
-  height: 45px;
-  width: 45px;
+  padding-left: 10px;
+  padding-right: 10px;
   outline: none;
   border: none;
   display: grid;
@@ -211,36 +214,34 @@
   color: rgba(255, 255, 255, 0.6);
 }
 
-
 .gridItem:hover {
   border: 3px solid var(--secondary);
 }
 
-
 @media screen and (max-width: 1600px) {
-    .gridContainer {
-        --num-cols: 3;
-        width: 1250px;
-    }
+  .gridContainer {
+    --num-cols: 3;
+    width: 1250px;
+  }
 }
 
 @media screen and (max-width: 1400px) {
-    .gridContainer {
-        --num-cols: 3;
-        width: 1100px;
-    }
+  .gridContainer {
+    --num-cols: 3;
+    width: 1100px;
+  }
 }
 
 @media screen and (max-width: 1100px) {
-    .gridContainer {
-        --num-cols: 2;
-        width: 700px;
-    }
+  .gridContainer {
+    --num-cols: 2;
+    width: 700px;
+  }
 }
 
 @media screen and (max-width: 750px) {
-    .gridContainer {
-        --num-cols: 1;
-        width: 500px;
-    }
+  .gridContainer {
+    --num-cols: 1;
+    width: 500px;
+  }
 }

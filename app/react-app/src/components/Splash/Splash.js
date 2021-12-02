@@ -60,12 +60,17 @@ const Splash = () => {
       const searchComponent = (
         <div className='search'>
             <div className="drop-down2">
-                <input 
-                    type="text"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    placeholder="Search for a Magic card"
-                />
+                <div className="search-and-icon">
+                    <div className="iconContainer">
+                        <img src={searchIcon} alt="" />
+                    </div>
+                    <input 
+                        type="text"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        placeholder="Search for a Magic card"
+                    />
+                </div>
                 <div className='search-results2'>
                     {results.length > 0 && (
                         <ul>
