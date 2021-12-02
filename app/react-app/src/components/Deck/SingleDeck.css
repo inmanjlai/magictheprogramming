@@ -140,12 +140,11 @@
 }
 
 .decklist-cards {
-    margin: 0 10%;
     padding: 25px;
     display: flex;
     flex-direction: column;
-    max-height: 1200px;
-    max-width: 800px;
+    max-height: 1400px;
+    width: 750px;
     flex-wrap: wrap;
     color: #bbbbbb;
     font-size: 14px;
@@ -184,6 +183,7 @@
 
 .card {
     display: flex;
+    cursor: pointer;
 }
 
 .card-dropdown {
@@ -252,8 +252,59 @@
     height: 25px;
     align-items: center;
 }
+.card-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+}
 
 .card-display img {
-    height: 300px;
+    height: 350px;
     border-radius: 12px;
+    margin-top: 25px;
+    position: sticky;
+    top: 75px;
+}
+
+.card-display h4 {
+    position: sticky;
+    top: 410px;
+    color: #cccccc;
+}
+
+.card-display p {
+    color:#cccccc;
+    width: 250px;
+}
+
+.cards-area {
+    display: flex;
+    margin-left: calc(10% + 25px);
+}
+
+.search-bar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.search-bar input {
+    background-color: #131313;
+    color: #525252;
+}
+
+.search-results ul {
+    background-color: #424242;
+    color: #525252;
+}
+
+.search-results ul li {
+    border-bottom: 1px solid rgb(31, 30, 30);
+    color: white;
+}
+
+.search-results ul li:hover {
+    background-color: #525252;
+    color: white;
 }

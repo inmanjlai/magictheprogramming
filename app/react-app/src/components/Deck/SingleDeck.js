@@ -15,15 +15,15 @@ const SingleDeck = () => {
     const history = useHistory()
     
     const deck = useSelector((state) => state.decks)[0]
-    const commander = deck?.commander
-    const [currentCard, setCurrentCard] = useState(commander?.image_url)
+    const commander = {"card_info": deck?.commander}
+    const [currentCard, setCurrentCard] = useState(commander)
 
     useEffect(() => {
         dispatch(getOneDeck(params.deckId))
         dispatch(getOneDecklist(params.deckId))
         dispatch(getAllComments(params.deckId))
-        setCurrentCard(commander?.image_url)
-    }, [dispatch, params.deckId, commander?.image_url])
+        setCurrentCard(commander)
+    }, [dispatch, params.deckId, commander?.card_info?.image_url])
 
     const [search, setSearch] = useState("")
     const [results, setResults] = useState([])
@@ -56,7 +56,7 @@ const SingleDeck = () => {
     
    
 
-    const creatures = decklist?.filter((card) => card?.card_info?.type_line.includes("Creature") && !(card?.card_info?.name?.includes(commander?.name)))
+    const creatures = decklist?.filter((card) => card?.card_info?.type_line.includes("Creature") && !(card?.card_info?.name?.includes(commander?.card_info?.name)))
     const planeswalkers = decklist?.filter((card) => card?.card_info?.type_line.includes("Planeswalker"))
     const artifacts = decklist?.filter((card) => card?.card_info?.type_line.includes("Artifact"))
     const sorceries = decklist?.filter((card) => card?.card_info?.type_line.includes("Sorcery"))
@@ -121,7 +121,7 @@ const SingleDeck = () => {
             <div key={card.card_info.id}>
 
                 {/* SHOWS A CARD'S NAME, QUANTITY AND OPTION TO REMOVE IT FROM THE DECK */}
-                <li className='card' onMouseOver={(e) => setCurrentCard(card?.card_info?.image_url)}>{card?.quantity} {card?.card_info.name} 
+                <li className='card' onMouseOver={(e) => setCurrentCard(card)}>{card?.quantity} {card?.card_info.name} 
                     <div className='card-dropdown'>
                         <img src={dropdown} alt="dropdown-card" 
                             onClick={(e) => {
@@ -151,7 +151,7 @@ const SingleDeck = () => {
                 <div key={commander?.card_info?.id}>
 
                 {/* SHOWS A CARD'S NAME, QUANTITY AND OPTION TO REMOVE IT FROM THE DECK */}
-                <li onMouseOver={(e) => setCurrentCard(commander?.image_url)}>1 {commander?.name}</li>
+                <li onMouseOver={(e) => setCurrentCard(commander)} className="card">1 {commander?.card_info?.name}</li>
                 </div>
             </li>
             <li>
@@ -243,7 +243,7 @@ const SingleDeck = () => {
                     {userControls}
                 </div>
                 <div className='showcase'>
-                    <img src={commander?.art_crop} className='showcase-image' alt="showcase" />
+                    <img src={commander?.card_info?.art_crop} className='showcase-image' alt="showcase" />
                     <div className='gradient'></div>
                 </div>
             </div>
@@ -253,9 +253,13 @@ const SingleDeck = () => {
             {decklistComponent && (user?.id === deck?.owner_id) && (
                 searchBar
             )}
-
-            <div className='card-display'>
-                <img src={currentCard} alt="currentCard"/>
+            <div className="cards-area">
+                <div className='card-display'>
+                    <img src={currentCard?.card_info?.image_url} alt="currentCard"/>
+                    {/* <h4>{currentCard?.card_info?.name}</h4>
+                    <p>{currentCard?.card_info?.oracle_text}</p> */}
+                </div>
+                {cardsInDeck}
             </div>
 
             <div className='deck-size'>
@@ -271,7 +275,6 @@ const SingleDeck = () => {
                     </ul>
             </div>
             
-            {cardsInDeck}
 
             <h3>Comments</h3>
             {user?.id && (
