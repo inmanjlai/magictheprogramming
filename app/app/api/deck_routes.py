@@ -22,7 +22,7 @@ def get_all_public_decks():
 
 @deck_routes.route('/public/reverse/')
 def get_all_public_decks_reverse():
-    decks = Deck.query.filter(Deck.private == False).order_by(Deck.id.desc()).all()
+    decks = Deck.query.filter(Deck.private == False).order_by(Deck.id.desc()).limit(8).all()
     return {"decks": [deck.to_dict() for deck in decks]}
 
 # Read a single user's decks

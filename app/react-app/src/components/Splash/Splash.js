@@ -93,12 +93,6 @@ const Splash = () => {
                 <div className="hero">
                     <div className="title">Deck Building made easy.</div>
                     <div className="subtitle">Build your Commander Deck for Magic: the Gathering. </div>
-                    {/* <div className="search">
-                        <div className="iconContainer">
-                            <img src={searchIcon} alt="" />
-                        </div>
-                        <input type="text" placeholder='Search for decks, cards, or users' />
-                    </div> */}
                     {searchComponent}
                 </div>
                 <div className="splashDecksContainer">
