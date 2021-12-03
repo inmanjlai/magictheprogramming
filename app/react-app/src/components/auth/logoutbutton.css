@@ -4,13 +4,10 @@
     color: inherit;
     font-size: 16px;
     cursor: pointer;
-    border: 3px solid var(--primary);
     padding: 10px;
     transition: 0.3s;
     font-weight: bold;
 }
 
 .logout-button:hover {
-    background-color: var(--primary);
-    color: var(--secondary);
 }

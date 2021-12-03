@@ -1,0 +1,98 @@
+.user-page {
+    display: flex;
+    /* width: 100%; */
+    height: 100%;
+    margin-top: 50px;
+    gap: 25px;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.users-details {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    color: #c2c2c2;
+}
+
+.users-details h1 {
+    font-size: 40px;
+    color: white;
+}
+
+.users-details .profile-bio {
+    margin-top: 20px;
+}
+
+.users-details p {
+    margin-top: 10px;
+    padding: 10px;
+    line-height: 1.4;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    min-height: 310px;
+    border-radius: 0.25rem;
+}
+
+.users-decks {
+    width: 100%;
+}
+
+.user-page .grid-item-container-user {
+    height: 194px;
+    width: 310px;
+}
+
+.users-decks .gridContainerUser {  
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 650px;
+    gap: 30px;
+    margin-right: 0;
+    margin-bottom: 25px;
+}
+
+.gridItemUser:hover {
+    border: 3px solid var(--secondary);
+  }
+
+.gridItemUser {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    height: 194px;
+    color: white;
+    box-shadow: 0 4px 3px 0px rgb(0 0 0 / 15%);
+    overflow: hidden;
+    border: 3px solid transparent;
+    background: radial-gradient(transparent, #000000);
+    border-radius: 5px;
+    padding: 0.75rem 1rem;
+}
+
+@media screen and (max-width: 500px) {
+    .user-page {
+        flex-direction: column;
+    }
+
+    .user-page .gridContainerUser {
+        width: 450px;
+        grid-template-columns: 1fr;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .user-page .grid-item-container-user {
+        align-items: center;
+    }
+
+    .user-page .gridItemUser {
+        width: 300px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+
+}    

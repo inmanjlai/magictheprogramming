@@ -1,0 +1,19 @@
+.footer {
+    background-color: #333333;
+    padding: 20px calc(10% + 25px);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    color: #c5c5c5c2;
+    font-size: 12px;
+    line-height: 1.4;
+    gap: 15px;
+}
+
+.link {
+    color: var(--secondary);
+}
+
+.link:hover {
+    text-decoration: underline;
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useParams, useHistory } from 'react-router-dom';
+import './user.css'
 
 function User() {
   const [user, setUser] = useState({});
@@ -8,6 +9,7 @@ function User() {
   const { userId }  = useParams();
 
   const loggedInUser = useSelector((state) => state.session.user)
+  const history = useHistory()
 
   useEffect(() => {
     if (!userId) {
@@ -33,33 +35,35 @@ function User() {
     return null;
   }
 
+  const deckComponent = decks?.decks?.map((deck) => {
+    return (
+        <div className="grid-item-container-user">
+            <div onClick={() => history.push(`/decks/${deck.id}`)} className='gridItemUser' key={deck.id}>
+                <div className='deck-name'>{deck?.name}</div>
+                <div className='commander-name'>{deck?.commander?.name}</div>
+                <img id='grid-item-background' src={deck?.commander?.art_crop} alt="commander" />
+            </div>
+        </div>
+    );
+  });
+
   return (
-    <ul>
-      <li>
-        <strong>User Id</strong> {userId}
-      </li>
-      <li>
-        <strong>Username</strong> {user.username}
-      </li>
-      <li>
-        <strong>Email</strong> {user.email}
-      </li>
-      <li>
-       <strong>
-        Decks:
-       </strong>
-       <ul>
-          {decks?.decks?.map((deck) => {
-            if((deck.private === true) && (deck.owner_id !== loggedInUser.id)) return null
-            return (
-              <li>
-                <NavLink to={`/decks/${deck.id}`}>{deck.name}</NavLink>
-              </li>
-            )
-          })}
-       </ul>
-      </li>
-    </ul>
+    <div className='justify-content-center'>
+      <div className='user-page'>
+        <div className='users-details'>
+          <h1>{user.username}</h1>
+          <h5>{user.email}</h5>
+          <h4 className='profile-bio'>Proflie Bio</h4>
+          <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Proin eget tortor risus. Cras ultricies ligula sed magna dictum porta. Sed porttitor lectus nibh.</p>
+        </div>
+
+        <div className='users-decks'>
+          <div className='gridContainerUser'>
+            {deckComponent}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 export default User;
