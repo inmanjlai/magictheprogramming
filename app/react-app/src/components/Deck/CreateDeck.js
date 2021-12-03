@@ -44,6 +44,7 @@ const CreateDeck = ({onClose}) => {
         }
         // dispatch to create a deck taking in a form data
         const returnedDeckId = await dispatch(createOneDeck(formData))
+        onClose()
         history.push(`/decks/${returnedDeckId}`)
     }
 
@@ -66,7 +67,7 @@ const CreateDeck = ({onClose}) => {
      })
 
      const searchBar = (
-        <div>
+        <div className='search-commander'>
             { commander === null ? (<form onSubmit={handleSubmit}>
                 <input 
                     type="search"
@@ -76,7 +77,7 @@ const CreateDeck = ({onClose}) => {
                     />
                 <div>
                     {results.length > 0 && (
-                        <ul>
+                        <ul className='commander-results'>
                             {searchResults}
                         </ul>
                     )}

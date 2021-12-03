@@ -68,6 +68,33 @@
     color: rgb(172, 167, 167);
 }
 
+.search-commander {
+    position: relative;
+}
+
+.commander-results {
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    height: max-content;
+    max-height: 200px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0.25rem;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2),
+    -5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.commander-results li {
+    padding: 5px 10px;
+    transition: background-color 0.1s;
+}
+
+.commander-results li:hover {
+    background-color: #cccccc;
+}
+
 .deck-footer {
     padding: 0px 14px 14px 14px;
     display: flex;
