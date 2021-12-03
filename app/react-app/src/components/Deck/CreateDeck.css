@@ -1,0 +1,140 @@
+.deck-form h5 {
+    color: #333;
+    font-weight: 400;
+    font-size: 0.95rem;
+    margin-bottom: 5px;
+}
+
+.deck-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ced4da;
+    padding: 14px;
+}
+
+.deck-content {
+    padding: 14px;
+}
+
+.deck-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.close-modal {
+    cursor: pointer;
+    width: 20px;
+}
+
+.form-set:first-child {
+    margin-top: 16px;
+}
+
+.content-item {
+    margin-bottom: 1rem;
+}
+
+.content-item:last-child {
+    margin-bottom: 0;
+}
+
+.content-item input {
+    display: block;
+    min-width: 500px;
+    height: calc(2.25em + 2px);
+    padding: .375rem .75rem;
+    font-weight: 400;
+    color: #495057;
+    border: 1px solid #ced4da;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+}
+
+.content-item input::placeholder {
+    color: rgb(172, 167, 167);
+}
+
+.content-item textarea {
+    resize: none;
+    width: 100%;
+    min-height: 4rem;
+    padding: 0.375rem 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+.content-item textarea::placeholder {
+    color: rgb(172, 167, 167);
+}
+
+.search-commander {
+    position: relative;
+}
+
+.commander-results {
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    height: max-content;
+    max-height: 200px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0.25rem;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2),
+    -5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.commander-results li {
+    padding: 5px 10px;
+    transition: background-color 0.1s;
+}
+
+.commander-results li:hover {
+    background-color: #cccccc;
+}
+
+.deck-footer {
+    padding: 0px 14px 14px 14px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    outline: 1px solid rgb(115, 31, 161);
+    padding: .4rem .8rem;
+    border-radius: .25rem;
+}
+
+.deck-footer button {
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    color: white;
+    background-color: rgb(115, 31, 161);
+    font-size: 0.8rem;
+    outline: none;
+    border: none;
+    font-size: 14px;
+    transition: background-color 0.4s;
+}
+
+.deck-footer button:hover {
+    background-color: rgb(88, 23, 122);
+}
+
+@media screen and (max-width: 550px) {
+    .content-item input {
+        min-width: 350px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .content-item input {
+        min-width: 200px;
+    }
+}

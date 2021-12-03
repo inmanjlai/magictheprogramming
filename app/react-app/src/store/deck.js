@@ -17,6 +17,15 @@ export const getAllDecks = () => async (dispatch) => {
   }
 };
 
+export const getAllDecksReverse = () => async (dispatch) => {
+  const response = await fetch('/api/decks/public/reverse/');
+
+  if (response.ok) {
+    const decks = await response.json()
+    dispatch(load(decks));
+  }
+};
+
 export const getOneDeck = (deckId) => async (dispatch) => {
   const response = await fetch(`/api/decks/${deckId}/`);
 
