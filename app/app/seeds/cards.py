@@ -1,45 +1,68 @@
 from app.models import db, Card
+import json
+from colors import *
+
+file = open('bulk_data.json')
+bulk_data = json.load(file)
+
+
 
 
 # Adds a demo user, you can add other users here if you want
 def seed_cards():
-    YTP = Card(
-        name="Yawgmoth, Thran Physician", 
-        type_line="Legendary Creature — Human Cleric",
-        oracle_text="Protection from Humans\nPay 1 life, Sacrifice another creature: Put a -1/-1 counter on up to one target creature and draw a card.\n{B}{B}, Discard a card: Proliferate. (Choose any number of permanents and/or players, then give each another counter of each kind already there.)",
-        mana_value=4,
-        mana_cost="{2}{B}{B}",
-        colors="B",
-        image_url="https://c1.scryfall.com/file/scryfall-cards/normal/front/8/6/8690cbcc-f8fd-41f7-9e28-e61c12b04014.jpg?1562201785",
-        art_crop="https://c1.scryfall.com/file/scryfall-cards/art_crop/front/8/6/8690cbcc-f8fd-41f7-9e28-e61c12b04014.jpg?1562201785"
-    )
-    
-    DR = Card(
-        name="Dark Ritual", 
-        type_line="Instant",
-        oracle_text="Add {B}{B}{B} to your mana pool",
-        mana_value=1,
-        mana_cost="{B}",
-        colors="B",
-        image_url="https://c1.scryfall.com/file/scryfall-cards/normal/front/9/5/95f27eeb-6f14-4db3-adb9-9be5ed76b34b.jpg?1628801678",
-        art_crop="https://c1.scryfall.com/file/scryfall-cards/art_crop/front/9/5/95f27eeb-6f14-4db3-adb9-9be5ed76b34b.jpg?1628801678"
-    )
 
-    KMB = Card(
-        name="Krenko, Mob Boss", 
-        type_line="Legendary Creature — Goblin Warrior",
-        oracle_text="{T}: Create X 1/1 red Goblin creature tokens, where X is the number of Goblins you control.",
-        mana_value=4,
-        mana_cost="{2}{R}{R}",
-        colors="R",
-        image_url="https://c1.scryfall.com/file/scryfall-cards/normal/front/c/d/cd9fec9d-23c8-4d35-97c1-9499527198fb.jpg?1601078209",
-        art_crop="https://c1.scryfall.com/file/scryfall-cards/art_crop/front/c/d/cd9fec9d-23c8-4d35-97c1-9499527198fb.jpg?1601078209"
-    )
+    for card in bulk_data:
 
-    db.session.add(YTP)
-    db.session.add(DR)
-    db.session.add(KMB)
-    db.session.commit()
+        if 'card_faces' in card:
+            if "Token" in card['card_faces'][0]['type_line']:
+                continue
+
+            if 'colors' in card:
+
+                new_card = Card(
+                    name=card['card_faces'][0]['name'],
+                    type_line=card['card_faces'][0]['type_line'],
+                    oracle_text=card['card_faces'][0]['oracle_text'],
+                    mana_value=card['cmc'],
+                    mana_cost=card['card_faces'][0]['mana_cost'],
+                    colors=card['colors'],
+                    image_url=card['image_uris']['normal'],
+                    art_crop=card['image_uris']['art_crop']
+                )
+                db.session.add(new_card)
+                db.session.commit()
+                continue
+
+            
+
+            new_card = Card(
+                name=card['card_faces'][0]['name'],
+                type_line=card['card_faces'][0]['type_line'],
+                oracle_text=card['card_faces'][0]['oracle_text'],
+                mana_value=card['cmc'],
+                mana_cost=card['card_faces'][0]['mana_cost'],
+                colors=card['card_faces'][0]['colors'],
+                image_url=card['card_faces'][0]['image_uris']['normal'],
+                art_crop=card['card_faces'][0]['image_uris']['art_crop']
+            )
+            db.session.add(new_card)
+            db.session.commit()
+        else:
+            if "Token" in card['type_line']:
+                continue
+
+            new_card = Card(
+                name=card['name'],
+                type_line=card['type_line'],
+                oracle_text=card['oracle_text'],
+                mana_value=card['cmc'],
+                mana_cost=card['mana_cost'],
+                colors=card['colors'],
+                image_url=card['image_uris']['normal'],
+                art_crop=card['image_uris']['art_crop']
+            )
+            db.session.add(new_card)
+            db.session.commit()
 
 
 # Uses a raw SQL query to TRUNCATE the users table.

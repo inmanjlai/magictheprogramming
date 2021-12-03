@@ -4,11 +4,11 @@ class Card(db.Model):
     __tablename__ = 'cards'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(150), nullable=False, unique=True)
+    name = db.Column(db.String(3000), nullable=False)
     type_line = db.Column(db.String(80), nullable=False)
     oracle_text = db.Column(db.String(4000), nullable=True)
     mana_value = db.Column(db.Integer, nullable=False)
-    mana_cost = db.Column(db.String(40), nullable=True)
+    mana_cost = db.Column(db.String(400), nullable=True)
     colors = db.Column(db.String(100), nullable=False)
     image_url = db.Column(db.String(6000), nullable=False)
     art_crop = db.Column(db.String(6000), nullable=False)

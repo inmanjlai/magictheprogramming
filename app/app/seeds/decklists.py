@@ -1,29 +1,25 @@
-from app.models import db, Decklist
+from app.models import db, Decklist, Card
+from random import randint
 
 
 # Adds a demo user, you can add other users here if you want
-def seed_decklists():
-    one = Decklist(
-        deck_id=1, 
-        card_id=1,
-        quantity=1,
-        commander=True
-    )
-    two = Decklist(
-        deck_id=1, 
-        card_id=2,
-        quantity=1,
-    )
-    two = Decklist(
-        deck_id=2, 
-        card_id=3,
-        quantity=1,
-        commander=True
-    )
+def get_random_id():
+    return randint(1, 24133)
 
-    db.session.add(one)
-    db.session.add(two)
-    db.session.commit()
+def seed_decklists():
+    for j in range(1, 9):
+        for i in range(1, 100):
+            card = Card.query.get(get_random_id())
+            decklist_already_exists = Decklist.query.filter((Decklist.deck_id == j) & (Decklist.card_id == card.id)).first()
+            if decklist_already_exists:
+                card = Card.query.get(get_random_id())
+            decklist = Decklist(
+                deck_id=j,
+                card_id=card.id,
+                quantity=1
+            )
+            db.session.add(decklist)
+            db.session.commit()
 
 
 # Uses a raw SQL query to TRUNCATE the users table.

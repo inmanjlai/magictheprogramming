@@ -146,7 +146,7 @@ const SingleDeck = () => {
 
     const cardsInDeck = (
         <ul className='decklist-cards'>
-            <li>
+            <li className='column'>
                 <h3>Commander</h3>
                 <div key={commander?.card_info?.id}>
 
@@ -154,31 +154,31 @@ const SingleDeck = () => {
                 <li onMouseOver={(e) => setCurrentCard(commander)} className="card">1 {commander?.card_info?.name}</li>
                 </div>
             </li>
-            <li>
+            <li className='column'>
                 <h3>Creatures ({findDeckSize(creatures)})</h3>
                     {decklistComponent(creatures)}
             </li>
-            <li>
+            <li  className='column'>
                 <h3>Planeswalkers ({findDeckSize(planeswalkers)})</h3>
                     {decklistComponent(planeswalkers)}
             </li>
-            <li>
+            <li  className='column'>
                 <h3>Artifacts ({findDeckSize(artifacts)})</h3>
                     {decklistComponent(artifacts)}
             </li>
-            <li>
+            <li  className='column'>
                 <h3>Enchantments ({findDeckSize(enchantments)})</h3>
                     {decklistComponent(enchantments)}
             </li>
-            <li>
+            <li  className='column'>
                 <h3>Sorceries ({findDeckSize(sorceries)})</h3>
                     {decklistComponent(sorceries)}
             </li>
-            <li>
+            <li  className='column'>
                 <h3>Instants ({findDeckSize(instants)})</h3>
                     {decklistComponent(instants)}
             </li>
-            <li>
+            <li className='column'>
                 <h3>Lands ({findDeckSize(lands)})</h3>
                     {decklistComponent(lands)}
             </li>
@@ -259,7 +259,7 @@ const SingleDeck = () => {
                     {/* <h4>{currentCard?.card_info?.name}</h4>
                     <p>{currentCard?.card_info?.oracle_text}</p> */}
                 </div>
-                {cardsInDeck}
+                    {cardsInDeck}
             </div>
 
             <div className='deck-size'>
