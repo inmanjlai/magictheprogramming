@@ -144,6 +144,7 @@
     padding: 14px 14px 14px 14px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .footer-checkbox {
@@ -153,7 +154,12 @@
     padding: .4rem .8rem;
     border-radius: .25rem;
     background-color: #111;
-    border: 1px solid #000;
+    border: 1px solid #000;;
+    color: #cccccc;
+}
+
+.footer-checkbox label, input[type='checkbox'] {
+    cursor: pointer;
 }
 
 .deck-footer button {

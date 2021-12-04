@@ -72,7 +72,7 @@ const EditDeck = ({onClose}) => {
                 </div>
                 <div className="deck-footer">
                     <div className="footer-checkbox">
-                        <h5>Private</h5>
+                        <label for="visibility">Private</label>
                         <input type="checkbox" checked={visibility} id="visibility" value={visibility} onChange={(e) => setVisibilty(!visibility)} />
                     </div>
                     <button>Edit Deck</button>
