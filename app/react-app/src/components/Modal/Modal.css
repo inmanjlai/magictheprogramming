@@ -1,5 +1,30 @@
 .modal-container {
-    border-radius: 4px;
+    border-radius: 6px;
     display: flex;
     flex-direction: column;
+}
+
+@media screen and (max-width: 750px) {
+    .modal-container {
+        width: 96% !important;
+        height: calc(100% - 19px) !important;
+        background-color: #222 !important;
+        min-height: max-content !important;
+        overflow-y: auto !important;
+        top: 10px !important;
+    }
+      .modal-container::-webkit-scrollbar {
+        width: 0px;
+      }
+
+    .content-item input {
+        width: 100%;
+    }
+}
+
+@media screen and (max-height: 750px) {
+    .modal-container {
+        overflow-y: auto !important;
+    }
+
 }

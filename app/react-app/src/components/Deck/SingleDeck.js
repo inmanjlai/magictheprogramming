@@ -16,13 +16,17 @@ const SingleDeck = () => {
     
     const deck = useSelector((state) => state.decks)[0]
     const commander = {"card_info": deck?.commander}
+    const decklist = useSelector((state) => state.decklist)
     const [currentCard, setCurrentCard] = useState(commander)
+    const [deckId, setDeckId] = useState(1)
 
     useEffect(() => {
-        dispatch(getOneDeck(params.deckId))
-        dispatch(getOneDecklist(params.deckId))
-        dispatch(getAllComments(params.deckId))
+        setDeckId(params.deckId)
+        dispatch(getOneDeck(deckId))
+        dispatch(getOneDecklist(deckId))
+        dispatch(getAllComments(deckId))
         setCurrentCard(commander)
+        // console.log(params.deckId, '<-------------------PARAMS------------------>')
     }, [dispatch, params.deckId, commander?.card_info?.image_url])
 
     const [search, setSearch] = useState("")
@@ -41,7 +45,6 @@ const SingleDeck = () => {
     
 
     const user = useSelector((state) => state.session.user)
-    const decklist = useSelector((state) => state.decklist)
     const comments = useSelector((state) => state.comments)
     
     const findDeckSize = (decklist) => {
@@ -51,6 +54,12 @@ const SingleDeck = () => {
         }
         return count;
     }
+
+    // useEffect(() => {
+    //     dispatch(getOneDecklist(params.deckId))
+    //     console.log(params.deckId, '<-------------------SECOND ####@@@2222 PARAMS------------------>')
+    //     console.log(decklist)
+    // }, [dispatch, params.deckId, commander?.card_info?.image_url])
 
     const maxColumnSize = 55
     
@@ -146,47 +155,6 @@ const SingleDeck = () => {
         )
     })
 
-    const cardsInDeck = (
-        <ul className='decklist-cards'>
-            <li className='column'>
-                <h3>Commander</h3>
-                <div key={commander?.card_info?.id}>
-
-                {/* SHOWS A CARD'S NAME, QUANTITY AND OPTION TO REMOVE IT FROM THE DECK */}
-                <li onMouseOver={(e) => setCurrentCard(commander)} className="card">1 {commander?.card_info?.name}</li>
-                </div>
-            </li>
-            <li className='column'>
-                <h3>Creatures ({findDeckSize(creatures)})</h3>
-                    {decklistComponent(creatures)}
-            </li>
-            <li  className='column'>
-                <h3>Planeswalkers ({findDeckSize(planeswalkers)})</h3>
-                    {decklistComponent(planeswalkers)}
-            </li>
-            <li  className='column'>
-                <h3>Artifacts ({findDeckSize(artifacts)})</h3>
-                    {decklistComponent(artifacts)}
-            </li>
-            <li  className='column'>
-                <h3>Enchantments ({findDeckSize(enchantments)})</h3>
-                    {decklistComponent(enchantments)}
-            </li>
-            <li  className='column'>
-                <h3>Sorceries ({findDeckSize(sorceries)})</h3>
-                    {decklistComponent(sorceries)}
-            </li>
-            <li  className='column'>
-                <h3>Instants ({findDeckSize(instants)})</h3>
-                    {decklistComponent(instants)}
-            </li>
-            <li className='column'>
-                <h3>Lands ({findDeckSize(lands)})</h3>
-                    {decklistComponent(lands)}
-            </li>
-        </ul>
-    )
-
     const cardsInDeckNew = (
         <div className='decklist-container'>
             <div className="columnOne">
@@ -240,7 +208,6 @@ const SingleDeck = () => {
                         {decklistComponent(lands)}
                     </div>
                 }
-
 
             </div>
 
@@ -364,7 +331,7 @@ const SingleDeck = () => {
                     <p>{currentCard?.card_info?.oracle_text}</p> */}
                 </div>
                     {/* {cardsInDeck} */}
-                    {cardsInDeckNew}
+                    {decklist && cardsInDeckNew}
             </div>
 
             <div className='deck-size'>

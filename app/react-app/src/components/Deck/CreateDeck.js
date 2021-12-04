@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react"
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory, useParams, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
 import { createOneDeck } from "../../store/deck"
-import { createCard } from "../../store/decklist"
+import { createCard, emptyDecklist, getOneDecklist } from "../../store/decklist"
 
 import exit from '../../images/close.svg'
 
 import './CreateDeck.css'
-
 
 const CreateDeck = ({onClose}) => {
 
@@ -45,9 +44,10 @@ const CreateDeck = ({onClose}) => {
         // dispatch to create a deck taking in a form data
         const returnedDeckId = await dispatch(createOneDeck(formData))
         onClose()
+        //dispatch to clear the decklist
+        dispatch(getOneDecklist(returnedDeckId))
         history.push(`/decks/${returnedDeckId}`)
     }
-
 
     // SEARCH BAR IMPLEMENTATION
     const handleCreateCommander = async(e) => {

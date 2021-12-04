@@ -1,10 +1,15 @@
 // constants
 const SET_DECKLIST = 'decklist/SET_DECKLIST';
+const CLEAR_DECKLIST = 'decklist/CLEAR_DECKLIST';
 
 const load = (decks) => ({
   type: SET_DECKLIST,
   payload: decks
 });
+
+const clear = () => ({
+  type: CLEAR_DECKLIST
+})
 
 const initialState = [];
 
@@ -15,6 +20,10 @@ export const getOneDecklist = (deckId) => async (dispatch) => {
     const deck = await response.json()
     dispatch(load(deck));
   }
+};
+
+export const emptyDecklist = () => async (dispatch) => {
+    dispatch(clear());
 };
 
 export const addOneCard = (deckId, cardName) => async (dispatch) => {
@@ -86,6 +95,8 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_DECKLIST:
       return action.payload.cards
+    case CLEAR_DECKLIST:
+      return []
     default:
       return state;
   }

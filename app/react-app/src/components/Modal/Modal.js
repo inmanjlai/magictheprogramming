@@ -4,9 +4,9 @@ import './Modal.css'
 
 const MODAL_STYLES = {
     position: 'fixed',
-    top: '33%',
+    top: '30px',
     left: '50%',
-    transform: 'translate(-50%, -50%)',
+    transform: 'translate(-50%, 0px)',
     backgroundColor: '#FFF',
     zIndex: 1000
 }
