@@ -82,7 +82,15 @@ const CreateDeck = ({onClose}) => {
                         </ul>
                     )}
                 </div>
-            </form>) : <h3>{commander?.card?.name}</h3>}
+            </form>) : 
+                <div className='found-commander-container'>
+                    <div className="found-commander-card">
+                        <h3 className='found-commander'>{commander?.card?.name}</h3>
+                        <img className='exit' onClick={() => setCommander(null)}src={exit} alt="X" />
+                    </div>
+                    <img className='commander-picture' src={commander?.card?.image_url} alt="commander" />
+                </div>
+            }
         </div>
     )
 

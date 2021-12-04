@@ -1,5 +1,9 @@
+.deck-form {
+    background-color: #222;
+}
+
 .deck-form h5 {
-    color: #333;
+    color: white;
     font-weight: 400;
     font-size: 0.95rem;
     margin-bottom: 5px;
@@ -9,8 +13,16 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #ced4da;
+    border-bottom: 1px solid rgba(255, 255, 255, .3);
     padding: 14px;
+}
+
+.deck-header h3 {
+    color: white;
+}
+
+.deck-header img {
+    filter: invert(100%);
 }
 
 .deck-content {
@@ -39,33 +51,43 @@
     margin-bottom: 0;
 }
 
-.content-item input {
-    display: block;
-    min-width: 500px;
-    height: calc(2.25em + 2px);
-    padding: .375rem .75rem;
-    font-weight: 400;
-    color: #495057;
-    border: 1px solid #ced4da;
-    font-size: 1rem;
+.content-item input,
+.content-item textarea {
+    background-color: #111;
     border-radius: 0.25rem;
+    border: 1px solid #000;
+    padding: .375rem .75rem;
+    color: #bbb;
+    transition: box-shadow .2s;
 }
 
-.content-item input::placeholder {
-    color: rgb(172, 167, 167);
+.content-item input {
+    min-width: 500px;
+    height: calc(2.25em + 2px);
+    font-weight: 400;
+    font-size: 1rem;
 }
+
 
 .content-item textarea {
     resize: none;
     width: 100%;
     min-height: 4rem;
-    padding: 0.375rem 0.75rem;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
 }
 
-.content-item textarea::placeholder {
-    color: rgb(172, 167, 167);
+.content-item textarea:focus,
+.content-item input:focus {
+    /* outline: 1px solid #bb30bb; */
+    outline: none;
+    box-shadow: 0px 2px 5px #bb30bb,
+    0px -2px 5px #bb30bb,
+    2px 0px 5px #bb30bb,
+    -2px 0px 5px #bb30bb;
+}
+
+.content-item textarea::placeholder,
+.content-item input::placeholder {
+    color: rgb(172, 169, 169);
 }
 
 .search-commander {
@@ -95,6 +117,28 @@
     background-color: #cccccc;
 }
 
+.found-commander-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.found-commander {
+    color: white;
+}
+
+
+.found-commander-card {
+    display: flex;
+    gap: .5rem;
+}
+
+.commander-picture {
+    width: 250px;
+    border-radius: 15px;    
+}
+
 .deck-footer {
     padding: 0px 14px 14px 14px;
     display: flex;
@@ -105,9 +149,10 @@
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    outline: 1px solid rgb(115, 31, 161);
     padding: .4rem .8rem;
     border-radius: .25rem;
+    background-color: #111;
+    border: 1px solid #000;
 }
 
 .deck-footer button {

@@ -36,3 +36,10 @@ ul {
 .mgt50 {
     margin-top: 50px;
 }
+
+/* X image for exiting modals*/
+.exit {
+    height: 20px;
+    filter: invert(100%);
+    cursor: pointer;
+}
