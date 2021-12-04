@@ -1,12 +1,12 @@
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, NavLink } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteOneDeck, getOneDeck } from '../../store/deck'
 import { addOneCard, getOneDecklist, removeAllOfOneCard, removeOneCard } from '../../store/decklist'
 import { addOneComment, getAllComments, removeOneComment } from '../../store/comment'
-import './SingleDeck.css'
 import dropdown from '../../images/dropdown.svg'
-import cancel from '../../images/cancel.svg'
+import garbage from '../../images/delete.svg'
+import './SingleDeck.css'
 
 const SingleDeck = () => {
 
@@ -286,13 +286,19 @@ const SingleDeck = () => {
     const commentsComponent = comments.map((comment) => {
         return (
             <li key={comment?.id}>
-                <div>
-                    {comment?.user?.username} said:
-                </div>
-                {comment?.content}
-                {comment?.user?.id === user?.id && (
-                    <button onClick={() => handleDeleteComment(comment?.id)}>Delete</button>
+                <p className='comment-body'>
+                    {comment?.content}
+                </p>
+                <div className='comment-user'>
+                    <p>Posted by <NavLink to={`/users/${comment?.user?.id}`}>{comment?.user?.username}</NavLink></p> •
+                    {comment?.user?.id === user?.id && (
+                        <div className='delete-div' onClick={() => handleDeleteComment(comment?.id)}>
+                            <img src={garbage} alt="garbagecan" />
+                            <p className='comment-controls'>Delete</p>
+                        </div>
                 )}
+                </div>
+                
             </li>
         )
     })
@@ -375,18 +381,18 @@ const SingleDeck = () => {
             </div>
             
 
-            <h3>Comments</h3>
             {user?.id && (
-                <form onSubmit={handleCreateComment}>
+                <form onSubmit={handleCreateComment} className='comment-form'>
                     <textarea 
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
+                    placeholder="Write a witty comment..."
                     >
                     </textarea>
-                    <button>Post</button>
+                    <button>Post Comment</button>
                 </form>
             )}
-            <ul>
+            <ul className='comments-list'>
                 {commentsComponent}
             </ul>
         </div>

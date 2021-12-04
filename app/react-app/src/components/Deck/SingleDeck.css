@@ -338,3 +338,93 @@
     background-color: #525252;
     color: white;
 }
+
+.comments-list {
+    margin-left: calc(10% + 25px);
+    margin-top: 25px;
+    margin-bottom: 25px;
+    border-top: 1px solid #525252;
+    border-bottom: 1px solid #525252;
+    margin-right: calc(10% + 25px);
+}
+
+.comment-form {
+    margin-left: calc(10% + 25px);
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.comment-form textarea {
+    background-color: #131313;
+    outline: none;
+    border: none;
+    border-radius: 0.25rem;
+    width: 400px;
+    padding: 10px;
+    height: 50px;
+    color: #c2c2c2;
+    resize: none;
+}
+
+.comment-form button {
+    width: max-content;
+    padding: 10px;
+    background-color: #731fa1;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.comment-form button:hover {
+    background-color: #5f1985;
+}
+
+.comments-list h3 {
+    color: #cccccc;
+    margin-top: 25px
+}
+
+.comments-list li {
+    padding: 10px 0;
+    margin: 10px 0;
+    color: #cccccc;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 14px;
+}
+
+.comment-user a {
+    color: var(--secondary);
+}
+
+.comment-user {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.comment-controls {
+    cursor: pointer;
+    width: max-content;
+}
+
+.comment-controls:hover {
+    text-decoration: underline;
+}
+
+.delete-div {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.delete-div img {
+    filter: invert(88%) sepia(0%) saturate(0%) hue-rotate(210deg) brightness(91%) contrast(98%);
+    width: 20px;
+}
+
