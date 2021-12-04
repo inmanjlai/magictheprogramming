@@ -51,6 +51,8 @@ const SingleDeck = () => {
         }
         return count;
     }
+
+    const maxColumnSize = 55
     
     // THIS IS HOW WE CAN SEPERATE CARDS INTO CATEGORIES ->
     
@@ -121,7 +123,7 @@ const SingleDeck = () => {
             <div key={card.card_info.id}>
 
                 {/* SHOWS A CARD'S NAME, QUANTITY AND OPTION TO REMOVE IT FROM THE DECK */}
-                <li className='card' onMouseOver={(e) => setCurrentCard(card)}>{card?.quantity} {card?.card_info.name} 
+                <li className='card' onMouseOver={(e) => setCurrentCard(card)}>{card?.quantity} <span>{card?.card_info.name}</span> 
                     <div className='card-dropdown'>
                         <img src={dropdown} alt="dropdown-card" 
                             onClick={(e) => {
@@ -183,6 +185,102 @@ const SingleDeck = () => {
                     {decklistComponent(lands)}
             </li>
         </ul>
+    )
+
+    const cardsInDeckNew = (
+        <div className='decklist-container'>
+            <div className="columnOne">
+                {/* COMMANDER / PLANESWALKERS / CREATURES WILL ALWAYS BE IN COLUMN ONE */}
+                <div className="singleType" key={commander?.card_info?.id}>
+                    <h3>Commander</h3>
+                    <li onMouseOver={(e) => setCurrentCard(commander)} className="card">1 <span>{commander?.card_info?.name}</span></li>
+                </div>   
+
+                {planeswalkers.length > 0 && <div className='singleType'>
+                    <h3>Planeswalkers ({findDeckSize(planeswalkers)})</h3>
+                    {decklistComponent(planeswalkers)}
+                </div>}
+
+                {creatures.length > 0 && <div className="singleType">
+                    <h3>Creatures ({findDeckSize(creatures)})</h3>
+                    {decklistComponent(creatures)}
+                </div>}
+
+                {!((planeswalkers.length + creatures.length + sorceries.length + 1) > maxColumnSize) && sorceries.length > 0 && 
+                    <div className="singleType">
+                        <h3>Sorceries ({findDeckSize(sorceries)})</h3>
+                        {decklistComponent(sorceries)}
+                    </div>
+                }
+                
+                {!((planeswalkers.length + creatures.length + sorceries.length + instants.length + 1) > maxColumnSize)  && instants.length > 0 &&
+                    <div className="singleType">
+                        <h3>Instants ({findDeckSize(instants)})</h3>
+                        {decklistComponent(instants)}
+                    </div>
+                }
+                
+                {!((planeswalkers.length + creatures.length + sorceries.length + instants.length + enchantments.length + 1) > maxColumnSize)  && enchantments.length > 0 &&
+                    <div className="singleType">
+                        <h3>Enchantments ({findDeckSize(enchantments)})</h3>
+                        {decklistComponent(enchantments)}
+                    </div>
+                }
+                
+                {!((planeswalkers.length + creatures.length + sorceries.length + instants.length + enchantments.length + artifacts.length + 1) > maxColumnSize)  && artifacts.length > 0 &&
+                    <div className="singleType">
+                        <h3>Artifacts ({findDeckSize(artifacts)})</h3>
+                        {decklistComponent(artifacts)}
+                    </div>
+                }
+                
+                {!((planeswalkers.length + creatures.length + sorceries.length + instants.length + enchantments.length + artifacts.length + lands.length + 1) > maxColumnSize)  && lands.length > 0 &&
+                    <div className="singleType">
+                        <h3>Lands ({findDeckSize(lands)})</h3>
+                        {decklistComponent(lands)}
+                    </div>
+                }
+
+
+            </div>
+
+            <div className="columnTwo">
+                {((planeswalkers.length + creatures.length + sorceries.length + 1) > maxColumnSize)  && sorceries.length > 0 &&
+                        <div className="singleType">
+                            <h3>Sorceries ({findDeckSize(sorceries)})</h3>
+                            {decklistComponent(sorceries)}
+                        </div>
+                }
+                
+                {((planeswalkers.length + creatures.length + sorceries.length + instants.length + 1) > maxColumnSize)  && instants.length > 0 &&
+                    <div className="singleType">
+                        <h3>Instants ({findDeckSize(instants)})</h3>
+                        {decklistComponent(instants)}
+                    </div>
+                }
+
+                {((planeswalkers.length + creatures.length + sorceries.length + instants.length + enchantments.length + 1) > maxColumnSize)  && enchantments.length > 0 && 
+                    <div className="singleType">
+                        <h3>Enchantments ({findDeckSize(enchantments)})</h3>
+                        {decklistComponent(enchantments)}
+                    </div>
+                }
+
+                {((planeswalkers.length + creatures.length + sorceries.length + instants.length + enchantments.length + artifacts.length + 1) > maxColumnSize)  && artifacts.length > 0 &&
+                    <div className="singleType">
+                        <h3>Artifacts ({findDeckSize(artifacts)})</h3>
+                        {decklistComponent(artifacts)}
+                    </div>
+                }
+
+                {((planeswalkers.length + creatures.length + sorceries.length + instants.length + enchantments.length + artifacts.length + lands.length + 1) > maxColumnSize)  && lands.length > 0 &&
+                    <div className="singleType">
+                        <h3>Lands ({findDeckSize(lands)})</h3>
+                        {decklistComponent(lands)}
+                    </div>
+                }
+            </div>
+        </div>
     )
 
     const commentsComponent = comments.map((comment) => {
@@ -259,7 +357,8 @@ const SingleDeck = () => {
                     {/* <h4>{currentCard?.card_info?.name}</h4>
                     <p>{currentCard?.card_info?.oracle_text}</p> */}
                 </div>
-                    {cardsInDeck}
+                    {/* {cardsInDeck} */}
+                    {cardsInDeckNew}
             </div>
 
             <div className='deck-size'>

@@ -143,7 +143,7 @@
     height: max-content;
 } */
 
-.decklist-cards {
+/* .decklist-cards {
     padding: 25px;
     display: inline-flex;
     flex-direction: column;
@@ -152,51 +152,63 @@
     color: #bbbbbb;
     font-size: 14px;
     column-gap: 20px;
-    /* max-width: 40%; */
-}
-
-.column {
-}
-
-/* .decklist-cards {
+    max-width: 40%;
+} */
+/* 
+.decklist-cards {
     color: #bbbbbb;
-    display: inline-grid;
+    background-color: rgb(138, 95, 95);
+    display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: min-content;
+    grid-template-rows: auto;
+    grid-template-areas: 'left right';
 } */
 
-.decklist-cards > li {
-    /* margin-bottom: 10px; */
-    margin: 10px 0;
+.decklist-container {
+    display: flex;
+    padding: 10px;
+    gap: 25px;
+    color: #bbbbbb;
+    margin-top: 23px;
+    margin-left: 35px;
+}
+
+.decklist-container h3 {
+    border-bottom: 2px solid rgba(124, 124, 124, 0.2);
+    font-size: 14px;
+    padding: 2.5px;
+    margin-bottom: 2.5px;
+}
+
+.singleType {
+    margin-bottom: 30px;
+}
+
+.card {
+    border-bottom: 1px solid rgba(124, 124, 124, 0.2);
+    padding: 5px 0;
+    font-size: 14px;
+    margin-left: 15px;
+}
+
+.card span {
+    margin-left: 5px;
+}
+
+.card span:hover {
+    text-decoration: underline;
+}
+
+.columnOne {
+    width: 300px;
+}
+
+.columnTwo { 
+    width: 300px;
 }
 
 .card {
     height: max-content;
-}
-
-.decklist-cards li h3 {
-    margin-bottom: 5px;
-    padding-bottom: 5px;
-    border-bottom: 2px solid #525252;
-}
-
-.decklist-cards li div > li {
-    padding: 5px 10px;
-    border-bottom: 1px solid #525252;
-}
-
-.decklist-cards li div li:hover {
-    text-decoration: underline;
-}
-
-.decklist-cards li div span {
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.decklist-cards li div span:hover {
-    font-weight: bold;
-    cursor: pointer;
 }
 
 .card {
@@ -280,7 +292,7 @@
 .card-display img {
     height: 350px;
     border-radius: 12px;
-    margin-top: 25px;
+    margin-top: 35px;
     position: sticky;
     top: 75px;
 }
@@ -309,7 +321,7 @@
 
 .search-bar input {
     background-color: #131313;
-    color: #525252;
+    color: #bbbbbb;
 }
 
 .search-results ul {
