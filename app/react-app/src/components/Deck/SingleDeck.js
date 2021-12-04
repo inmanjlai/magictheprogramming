@@ -7,6 +7,8 @@ import { addOneComment, getAllComments, removeOneComment } from '../../store/com
 import dropdown from '../../images/dropdown.svg'
 import garbage from '../../images/delete.svg'
 import './SingleDeck.css'
+import Modal from '../Modal/Modal'
+import EditDeck from './EditDeck'
 
 const SingleDeck = () => {
 
@@ -19,6 +21,7 @@ const SingleDeck = () => {
     const decklist = useSelector((state) => state.decklist)
     const [currentCard, setCurrentCard] = useState(commander)
     const [deckId, setDeckId] = useState(1)
+    const [isOpen, setIsOpen] = useState(false)
 
     useEffect(() => {
         setDeckId(params.deckId)
@@ -114,11 +117,10 @@ const SingleDeck = () => {
         history.push("/decks")
     }
     
-    const handleEditDeck = () => {
-        history.push(`/decks/${params.deckId}/edit`)
-        // dispatch edit One Deck passing in params.deckId
-        
-    }
+    // const handleEditDeck = () => {
+    //     history.push(`/decks/${params.deckId}/edit`)
+    //     // dispatch edit One Deck passing in params.deckId
+    // }
 
     const displayDropdown = (card, element) => {
         const content = document.querySelector(`.card${card?.card_info?.id}`)
@@ -296,7 +298,10 @@ const SingleDeck = () => {
 
     const userControls = (
         <span className='deck-controls'>
-            {user?.id === deck?.owner_id && <button className='editBtn' onClick={handleEditDeck}>Edit deck</button>}
+            {user?.id === deck?.owner_id && <button className='editBtn' onClick={() => setIsOpen(true)}>Edit deck</button>}
+            <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+              <EditDeck onClose={() => setIsOpen(false)}/>
+            </Modal>
             {user?.id === deck?.owner_id && <button className='deleteBtn' onClick={handleDeleteDeck}>Delete deck</button>}
         </span>
     )

@@ -95,7 +95,6 @@ const CreateDeck = ({onClose}) => {
     )
 
     return (
-        <>
         <form className='deck-form' onSubmit={handleCreateDeck}>
             <div className="deck-header">
                 <h3 className='deck-title'>Add Deck</h3>
@@ -131,7 +130,6 @@ const CreateDeck = ({onClose}) => {
                 <button>Create</button>
             </div>
         </form>
-        </>
     )
 }
 

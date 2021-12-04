@@ -3,7 +3,9 @@ import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
 import { editOneDeck, getOneDeck } from "../../store/deck"
 
-const EditDeck = () => {
+import exit from '../../images/close.svg'
+
+const EditDeck = ({onClose}) => {
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -36,6 +38,7 @@ const EditDeck = () => {
         }
         // dispatch to create a deck taking in a form data
         const returnedDeckId = await dispatch(editOneDeck(formData, params.deckId))
+        onClose()
         history.push(`/decks/${returnedDeckId}`)
     }
 
@@ -44,23 +47,37 @@ const EditDeck = () => {
     }
     else {
         return (
-            <div>
-                <form onSubmit={handleEditDeck}>
-                    <input type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Deck name"
-                    />
-                    <input type="text"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        placeholder="Description"
-                    />
-                    <label htmlFor="visibility">Private</label>
-                    <input type="checkbox" checked={visibility} id="visibility" value={visibility} onChange={(e) => setVisibilty(!visibility)} />
+            <form className='deck-form' onSubmit={handleEditDeck}>
+                <div className="deck-header">
+                    <h3 className='deck-title'>Edit Deck</h3>
+                    <img className='close-modal' onClick={onClose} src={exit} alt="X" />
+                </div>
+                <div className="deck-content">
+                    <div className="content-item">
+                        <h5>Name</h5>
+                        <input type="text"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder="Deck name"
+                        />
+                    </div>
+                    <div className="content-item">
+                        <h5>Description</h5>
+                        <textarea type="text"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            placeholder="Deck Description"
+                        />
+                    </div>
+                </div>
+                <div className="deck-footer">
+                    <div className="footer-checkbox">
+                        <h5>Private</h5>
+                        <input type="checkbox" checked={visibility} id="visibility" value={visibility} onChange={(e) => setVisibilty(!visibility)} />
+                    </div>
                     <button>Edit Deck</button>
-                </form>
-            </div>   
+                </div>
+            </form>
         )
     }
 }
