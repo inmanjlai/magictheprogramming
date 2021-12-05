@@ -1,0 +1,6 @@
+.data-viz {
+    margin-left: calc(10% + 25px);
+    margin-right: calc(10% + 25px);
+    background-color: rebeccapurple;
+    height: 400px;
+}

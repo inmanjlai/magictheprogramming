@@ -9,6 +9,7 @@ import garbage from '../../images/delete.svg'
 import './SingleDeck.css'
 import Modal from '../Modal/Modal'
 import EditDeck from './EditDeck'
+import DataViz from './Data'
 
 const SingleDeck = () => {
 
@@ -351,6 +352,8 @@ const SingleDeck = () => {
                         <li>Sorceries: {findDeckSize(sorceries)}</li>
                     </ul>
             </div>
+
+            {decklist && <DataViz decklist={decklist}/>}
             
 
             {user?.id && (
