@@ -10,6 +10,8 @@ import './SingleDeck.css'
 import Modal from '../Modal/Modal'
 import EditDeck from './EditDeck'
 import DataViz from './Data'
+import Example from './Data'
+import Chart from './Data'
 
 const SingleDeck = () => {
 
@@ -353,7 +355,8 @@ const SingleDeck = () => {
                     </ul>
             </div>
 
-            {decklist && <DataViz decklist={decklist}/>}
+            {/* {decklist && <DataViz decklist={decklist}/>} */}
+            {/* <Chart decklist={decklist} /> */}
             
 
             {user?.id && (
