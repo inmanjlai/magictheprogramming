@@ -15,13 +15,6 @@ const Deck = () => {
 
     // use a useSelector to select decks from our slice of state and store it in a variable
     const decks = useSelector((state) => state.decks)
-    // const deckComponent = decks?.map((deck) => {
-    //     return (
-    //       <li key={deck.id}>
-    //         <NavLink to={`/decks/${deck.id}`}>{deck.name}</NavLink>
-    //       </li>
-    //     );
-    //   });
 
     const deckComponent = decks?.map((deck) => {
       return (
