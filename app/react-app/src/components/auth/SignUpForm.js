@@ -67,7 +67,7 @@ const SignUpForm = () => {
         <form onSubmit={onSignUp}>
           <div>
             {errors.map((error, ind) => (
-              <div key={ind}>{error}</div>
+              <div className='redError' key={ind}>{error}</div>
             ))}
           </div>
           <div className="display-flicker form-home-container">
@@ -89,7 +89,7 @@ const SignUpForm = () => {
           <h3>Email</h3>
           <div className='form-item'>
             <input
-              type='text'
+              type='email'
               name='email'
               onChange={updateEmail}
               value={email}
