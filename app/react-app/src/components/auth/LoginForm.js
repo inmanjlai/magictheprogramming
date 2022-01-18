@@ -54,7 +54,7 @@ const LoginForm = () => {
         <form onSubmit={onLogin}>
           <div>
             {errors.map((error, ind) => (
-              <div key={ind}>{error}</div>
+              <div className='redError' key={ind}>{error}</div>
               ))}
           </div>
           <div className="display-flicker form-home-container">

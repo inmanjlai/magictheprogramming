@@ -9,5 +9,6 @@
     font-weight: bold;
 }
 
-.logout-button:hover {
+.redError {
+    color: rgb(161, 27, 27);
 }
